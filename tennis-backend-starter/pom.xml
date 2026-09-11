@@ -49,6 +49,7 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+            <version>1.3.0</version>
         </dependency>
 
         <!-- Para leer el archivo .env sin depender de configurar variables de entorno a mano -->
