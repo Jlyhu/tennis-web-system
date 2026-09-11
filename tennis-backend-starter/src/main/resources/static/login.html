@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar sesión — Fsteni58</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="court-band">
+    <h1><a href="index.html">Fsteni58</a></h1>
+    <p>Comprador US2 — inicio de sesión</p>
+  </div>
+  <main>
+    <div class="card">
+      <h2>Iniciar sesión</h2>
+      <form id="formLogin">
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" required>
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" required>
+
+        <button type="submit">Entrar</button>
+      </form>
+      <div id="mensaje" class="mensaje"></div>
+    </div>
+    <nav class="enlaces"><a href="registro.html">No tengo cuenta, registrarme</a></nav>
+  </main>
+
+  <script>
+    document.getElementById('formLogin').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const mensaje = document.getElementById('mensaje');
+      mensaje.className = 'mensaje';
+
+      const cuerpo = {
+        correo: document.getElementById('correo').value,
+        contrasena: document.getElementById('contrasena').value
+      };
+
+      try {
+        const respuesta = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cuerpo)
+        });
+        const datos = await respuesta.json();
+
+        if (respuesta.ok) {
+          mensaje.className = 'mensaje exito';
+          mensaje.textContent = 'Bienvenido/a, ' + datos.nombre;
+        } else {
+          mensaje.className = 'mensaje error';
+          mensaje.textContent = datos.error || 'No se pudo iniciar sesión.';
+        }
+      } catch (err) {
+        mensaje.className = 'mensaje error';
+        mensaje.textContent = 'No se pudo conectar con el servidor.';
+      }
+    });
+  </script>
+</body>
+</html>

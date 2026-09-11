@@ -1,0 +1,10 @@
+# Nunca subir las credenciales reales
+.env
+
+# Archivos que genera Maven al compilar
+target/
+
+# Archivos de IDEs
+.idea/
+*.iml
+.vscode/
