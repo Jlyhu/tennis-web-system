@@ -1,0 +1,227 @@
+:root {
+  --verde-profundo: #1F4B43;
+  --verde-hover: #16362F;
+  --ambar: #C9822E;
+  --ambar-suave: #F1DFC4;
+  --fondo: #F5F6F3;
+  --texto: #23281F;
+  --texto-suave: #5B6459;
+  --borde: #D8DED4;
+  --rojo-error: #B3402A;
+  --radio: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px 64px;
+}
+
+.tarjeta {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 28px 24px 32px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--verde-profundo);
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 22px;
+}
+
+.marca-icono {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: var(--texto);
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 26px;
+  max-width: 34ch;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.etiqueta {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--texto);
+}
+
+input {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--texto);
+  width: 100%;
+}
+
+input::placeholder {
+  color: #A7AFA1;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--verde-profundo);
+  box-shadow: 0 0 0 3px rgba(31, 75, 67, 0.15);
+}
+
+input.invalido {
+  border-color: var(--rojo-error);
+}
+
+.campo-password {
+  position: relative;
+  display: flex;
+}
+
+.campo-password input {
+  padding-right: 56px;
+}
+
+.ver-password {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--verde-profundo);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.error {
+  min-height: 18px;
+  font-size: 0.82rem;
+  color: var(--rojo-error);
+}
+
+.aviso {
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.aviso.exito {
+  background: #E7F0E4;
+  color: var(--verde-hover);
+  border: 1px solid #BFD6B8;
+}
+
+.aviso.fallo {
+  background: #FBEAE5;
+  color: var(--rojo-error);
+  border: 1px solid #F1C4B8;
+}
+
+.boton-principal {
+  margin-top: 4px;
+  background: var(--verde-profundo);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.boton-principal:hover {
+  background: var(--verde-hover);
+}
+
+.boton-principal:disabled {
+  background: #9AA79F;
+  cursor: not-allowed;
+}
+
+.boton-principal:focus-visible {
+  outline: 3px solid var(--ambar);
+  outline-offset: 2px;
+}
+
+.pie {
+  text-align: center;
+  margin: 22px 0 0;
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+.pie a {
+  color: var(--verde-profundo);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pie a:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton-principal {
+    transition: none;
+  }
+}
+
+/* Pantallas más anchas: un poco más de aire, la tarjeta sigue centrada */
+@media (min-width: 640px) {
+  .pagina {
+    padding-top: 64px;
+  }
+  .tarjeta {
+    padding: 36px 32px 40px;
+  }
+}

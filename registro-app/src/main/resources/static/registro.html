@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear cuenta de comprador</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <main class="pagina">
+    <div class="tarjeta">
+
+      <div class="marca">
+        <svg class="marca-icono" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M10 16L14 8H34L38 16" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 16H40L37.2 37.6C37 39 35.8 40 34.4 40H13.6C12.2 40 11 39 10.8 37.6L8 16Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M17 22V26C17 29.3 20 32 24 32C28 32 31 29.3 31 26V22" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        </svg>
+        <span>Mercadito</span>
+      </div>
+
+      <h1>Abre tu cuenta de comprador</h1>
+      <p class="subtitulo">Regístrate para empezar a comprarle directo a los proveedores.</p>
+
+      <form id="form-registro" novalidate>
+
+        <label class="campo">
+          <span class="etiqueta">Nombre completo</span>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Laura Gómez" required minlength="3" maxlength="150">
+          <span class="error" id="error-nombre"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Correo electrónico</span>
+          <input type="email" id="correo" name="correo" autocomplete="email" inputmode="email" placeholder="laura@correo.com" required maxlength="150">
+          <span class="error" id="error-correo"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Contraseña</span>
+          <div class="campo-password">
+            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8">
+            <button type="button" class="ver-password" id="ver-password" aria-label="Mostrar contraseña">Ver</button>
+          </div>
+          <span class="error" id="error-contrasena"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Confirmar contraseña</span>
+          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" placeholder="Repite tu contraseña" required minlength="8">
+          <span class="error" id="error-confirmar"></span>
+        </label>
+
+        <div class="aviso" id="aviso" role="alert" hidden></div>
+
+        <button type="submit" class="boton-principal" id="boton-enviar">
+          <span id="boton-texto">Crear cuenta</span>
+        </button>
+
+      </form>
+
+      <p class="pie">
+        ¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script src="js/registro.js"></script>
+</body>
+</html>
