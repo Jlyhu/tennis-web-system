@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <main class="pagina">
+    <div class="tarjeta">
+
+      <div class="marca">
+        <span>Fsteni58</span>
+      </div>
+
+      <h1>Inicia sesión</h1>
+      <p class="subtitulo">Entra con tu correo y contraseña para seguir comprando o gestionando tu inventario.</p>
+
+      <form id="form-login" novalidate>
+
+        <label class="campo">
+          <span class="etiqueta">Correo electrónico</span>
+          <input type="email" id="correo" name="correo" autocomplete="email" inputmode="email" placeholder="laura@correo.com" required maxlength="150">
+          <span class="error" id="error-correo"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Contraseña</span>
+          <div class="campo-password">
+            <input type="password" id="contrasena" name="contrasena" autocomplete="current-password" placeholder="Tu contraseña" required minlength="8">
+            <button type="button" class="ver-password" id="ver-password" aria-label="Mostrar contraseña">Ver</button>
+          </div>
+          <span class="error" id="error-contrasena"></span>
+        </label>
+
+        <div class="aviso" id="aviso" role="alert" hidden></div>
+
+        <button type="submit" class="boton-principal" id="boton-enviar">
+          <span id="boton-texto">Entrar</span>
+        </button>
+
+      </form>
+
+      <p class="pie">
+        ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Gestionar clientes — Fsteni58</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main { max-width: 700px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-family: Arial, Helvetica, sans-serif; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 10px; border-bottom: 1px solid var(--line); }
+    th { color: #55594F; font-weight: normal; }
+    button.chico { width: auto; margin: 0; padding: 6px 12px; font-size: 0.8rem; }
+    .inactivo { opacity: 0.5; }
+  </style>
+</head>
+<body>
+  <div class="court-band">
+    <h1><a href="index.html">Fsteni58</a></h1>
+    <p>Administrador US5 — gestión de clientes</p>
+  </div>
+  <main>
+    <div class="card">
+      <h2>Clientes registrados</h2>
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Correo</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody id="tablaClientes"></tbody>
+      </table>
+      <div id="mensaje" class="mensaje"></div>
+    </div>
+  </main>
+
+  <script>
+    async function cargarClientes() {
+      const tabla = document.getElementById('tablaClientes');
+      tabla.innerHTML = '';
+      try {
+        const respuesta = await fetch('/admin/clientes');
+        const clientes = await respuesta.json();
+        clientes.forEach(c => {
+          const fila = document.createElement('tr');
+          if (!c.activo) fila.className = 'inactivo';
+          fila.innerHTML = `
+            <td>${c.nombre}</td>
+            <td>${c.correo}</td>
+            <td>${c.activo ? 'Activo' : 'Desactivado'}</td>
+            <td>${c.activo ? `<button class="chico" onclick="desactivar('${c.id}')">Desactivar</button>` : ''}</td>
+          `;
+          tabla.appendChild(fila);
+        });
+      } catch (err) {
+        document.getElementById('mensaje').className = 'mensaje error';
+        document.getElementById('mensaje').textContent = 'No se pudo conectar con el servidor.';
+      }
+    }
+
+    async function desactivar(id) {
+      await fetch('/admin/clientes/' + id, { method: 'DELETE' });
+      cargarClientes();
+    }
+
+    cargarClientes();
+  </script>
+</body>
+</html>

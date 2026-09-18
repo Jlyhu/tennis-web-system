@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear cuenta — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <main class="pagina">
+    <div class="tarjeta">
+
+      <div class="marca">
+        <span>Fsteni58</span>
+      </div>
+
+      <h1>Crea tu cuenta</h1>
+      <p class="subtitulo">Regístrate como comprador para adquirir productos, o como proveedor para publicar tu inventario.</p>
+
+      <form id="form-registro" novalidate>
+
+        <label class="campo">
+          <span class="etiqueta">Nombre completo</span>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Laura Gómez" required minlength="3" maxlength="150">
+          <span class="error" id="error-nombre"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Correo electrónico</span>
+          <input type="email" id="correo" name="correo" autocomplete="email" inputmode="email" placeholder="laura@correo.com" required maxlength="150">
+          <span class="error" id="error-correo"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Contraseña</span>
+          <div class="campo-password">
+            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8">
+            <button type="button" class="ver-password" id="ver-password" aria-label="Mostrar contraseña">Ver</button>
+          </div>
+          <span class="error" id="error-contrasena"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Confirmar contraseña</span>
+          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" placeholder="Repite tu contraseña" required minlength="8">
+          <span class="error" id="error-confirmar"></span>
+        </label>
+
+        <label class="campo">
+          <span class="etiqueta">Tipo de cuenta</span>
+          <select id="rol" name="rol">
+            <option value="comprador">Comprador</option>
+            <option value="proveedor">Proveedor mayorista</option>
+          </select>
+        </label>
+
+        <div class="aviso" id="aviso" role="alert" hidden></div>
+
+        <button type="submit" class="boton-principal" id="boton-enviar">
+          <span id="boton-texto">Crear cuenta</span>
+        </button>
+
+      </form>
+
+      <p class="pie">
+        ¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a>
+      </p>
+
+    </div>
+  </main>
+
+  <script src="js/registro.js"></script>
+</body>
+</html>

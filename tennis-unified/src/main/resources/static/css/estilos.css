@@ -1,0 +1,332 @@
+/* Fsteni58 — hoja de estilos unificada
+   Paleta: azul, morado, blanco (según acta de constitución)
+   Tipografías: Montserrat (títulos) + Poppins (texto/UI) */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --azul: #2C3AA0;
+  --azul-oscuro: #1F2A78;
+  --morado: #7C4DFF;
+  --morado-suave: #EFE9FE;
+  --morado-hover: #6636E8;
+  --blanco: #FFFFFF;
+  --fondo: #F6F5FC;
+  --texto: #211F33;
+  --texto-suave: #63607A;
+  --borde: #DDD9F0;
+  --error: #C0392B;
+  --error-suave: #F8E6E3;
+  --exito: #1F2A78;
+  --exito-suave: #E9EBFA;
+  --radio: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .marca {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
+
+/* ---------- Encabezado / banda de marca ---------- */
+
+.encabezado {
+  background: var(--azul);
+  color: var(--blanco);
+  padding: 28px 24px;
+  border-bottom: 6px solid var(--morado);
+}
+
+.encabezado a {
+  color: var(--blanco);
+  text-decoration: none;
+}
+
+.encabezado h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.encabezado p {
+  margin: 4px 0 0;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-size: 0.85rem;
+  color: var(--morado-suave);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.marca-icono {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+
+/* ---------- Layout general ---------- */
+
+.pagina {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 32px 16px 64px;
+}
+
+main {
+  max-width: 480px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+/* ---------- Tarjeta / card ---------- */
+
+.tarjeta, .card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 28px 24px 32px;
+}
+
+.tarjeta h2, .card h2 {
+  margin-top: 0;
+  font-weight: 600;
+  font-size: 1.35rem;
+  border-bottom: 2px solid var(--morado-suave);
+  padding-bottom: 12px;
+}
+
+h1 {
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  color: var(--texto);
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 26px;
+  max-width: 34ch;
+}
+
+/* ---------- Formularios ---------- */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label, .etiqueta {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+  margin: 18px 0 6px;
+}
+
+.campo label, .campo .etiqueta {
+  margin: 0;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  background: var(--blanco);
+  color: var(--texto);
+}
+
+input::placeholder {
+  color: #A6A2BC;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--azul);
+  box-shadow: 0 0 0 3px rgba(44, 58, 160, 0.15);
+}
+
+input.invalido {
+  border-color: var(--error);
+}
+
+.campo-password {
+  position: relative;
+  display: flex;
+}
+
+.campo-password input {
+  padding-right: 56px;
+}
+
+.ver-password {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--azul);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.error {
+  min-height: 18px;
+  font-size: 0.82rem;
+  color: var(--error);
+}
+
+/* ---------- Botones ---------- */
+
+button, .boton-principal {
+  margin-top: 4px;
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--azul);
+  color: var(--blanco);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+button:hover, .boton-principal:hover {
+  background: var(--azul-oscuro);
+}
+
+button:disabled, .boton-principal:disabled {
+  background: #A8A5C2;
+  cursor: not-allowed;
+}
+
+button:focus-visible, .boton-principal:focus-visible {
+  outline: 3px solid var(--morado);
+  outline-offset: 2px;
+}
+
+/* ---------- Mensajes / avisos ---------- */
+
+.mensaje, .aviso {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  display: none;
+}
+
+.mensaje.exito, .aviso.exito {
+  display: block;
+  background: var(--exito-suave);
+  border: 1px solid #C2C8EE;
+  color: var(--exito);
+}
+
+.mensaje.error, .aviso.fallo, .aviso.error {
+  display: block;
+  background: var(--error-suave);
+  border: 1px solid #E7BDB5;
+  color: var(--error);
+}
+
+/* ---------- Navegación / enlaces secundarios ---------- */
+
+.pie, nav.enlaces {
+  text-align: center;
+  margin: 22px 0 0;
+  font-size: 0.88rem;
+  color: var(--texto-suave);
+}
+
+.pie a, nav.enlaces a {
+  color: var(--azul);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pie a:hover, nav.enlaces a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Listas de enlaces (menús tipo panel) ---------- */
+
+.lista-links {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 0;
+}
+
+.lista-links li {
+  margin-bottom: 10px;
+}
+
+.lista-links a {
+  display: block;
+  padding: 14px 16px;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  color: var(--texto);
+  text-decoration: none;
+  font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  transition: border-color 0.15s ease;
+}
+
+.lista-links a:hover {
+  border-color: var(--azul);
+}
+
+/* ---------- Accesibilidad y responsive ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  button, .boton-principal, .lista-links a {
+    transition: none;
+  }
+}
+
+@media (min-width: 640px) {
+  .pagina {
+    padding-top: 64px;
+  }
+  .tarjeta, .card {
+    padding: 36px 32px 40px;
+  }
+}
