@@ -1,6 +1,7 @@
 package com.fsteni58.tennis.service;
 
 import com.fsteni58.tennis.dto.ProductoRequest;
+import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.ProductoRepository;
 import com.fsteni58.tennis.repository.ProveedorRepository;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,14 @@ public class ProductoService {
         }
 
         return productoRepository.guardar(request);
+    }
+    public void actualizarStock(UUID productoId, int nuevoStock) {
+        if (nuevoStock < 0) {
+            throw new IllegalArgumentException("El stock no puede ser negativo");
+        }
+        if (!productoRepository.existeProducto(productoId)) {
+            throw new ProductoNoEncontradoException("No existe un producto activo con id " + productoId);
+        }
+        productoRepository.actualizarStock(productoId, nuevoStock);
     }
 }

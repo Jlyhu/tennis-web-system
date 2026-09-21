@@ -58,4 +58,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new MensajeResponse(ex.getMessage()));
     }
+
+    @ExceptionHandler(TicketNoEncontradoException.class)
+        public ResponseEntity<?> manejarTicketNoEncontrado(TicketNoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
+    }
 }

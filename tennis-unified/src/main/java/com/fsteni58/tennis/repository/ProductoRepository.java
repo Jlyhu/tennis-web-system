@@ -25,4 +25,16 @@ public class ProductoRepository {
                 request.getProveedorId(), request.getNombre(), request.getDescripcion(),
                 request.getCategoria(), request.getPrecio(), request.getStock());
     }
+
+    public int actualizarStock(UUID productoId, int nuevoStock) {
+        String sql = "UPDATE productos SET stock = ? WHERE id = ? AND activo = true";
+        return jdbcTemplate.update(sql, nuevoStock, productoId);
+    }
+
+    public boolean existeProducto(UUID productoId) {
+        String sql = "SELECT COUNT(*) FROM productos WHERE id = ? AND activo = true";
+        Integer total = jdbcTemplate.queryForObject(sql, Integer.class, productoId);
+        return total != null && total > 0;
+    }
+
 }
