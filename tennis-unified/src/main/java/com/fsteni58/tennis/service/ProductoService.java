@@ -1,14 +1,17 @@
 package com.fsteni58.tennis.service;
 
 import com.fsteni58.tennis.dto.ProductoRequest;
+import com.fsteni58.tennis.dto.ProductoResponse;
+import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.ProductoRepository;
 import com.fsteni58.tennis.repository.ProveedorRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
-// Proveedor US1: lógica de negocio del registro de inventario
+// Lógica de negocio del módulo de inventario
 @Service
 public class ProductoService {
 
@@ -38,5 +41,14 @@ public class ProductoService {
         }
 
         return productoRepository.guardar(request);
+    }
+
+    public List<ProductoResponse> obtenerTodos() {
+        return productoRepository.obtenerTodos();
+    }
+
+    public ProductoResponse buscarPorId(UUID id) {
+        return productoRepository.buscarPorId(id)
+                .orElseThrow(() -> new ProductoNoEncontradoException("No se encontró el producto con el ID especificado: " + id));
     }
 }
