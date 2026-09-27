@@ -2,24 +2,114 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Fsteni58</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fsteni58 — Tienda virtual de tenis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-  <div class="court-band">
-    <h1>Fsteni58</h1>
-    <p>Tienda virtual de tenis — demo</p>
+
+  <div class="encabezado">
+    <a href="index.html" class="marca">
+      <svg class="marca-icono" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" fill="#FFF" fill-opacity="0.15"/>
+        <circle cx="16" cy="16" r="10" stroke="#FFF" stroke-width="1.6"/>
+        <path d="M9 12c3.5 2 10.5 2 14 0M9 20c3.5-2 10.5-2 14 0" stroke="#FFF" stroke-width="1.6"/>
+      </svg>
+      <span>Fsteni58</span>
+    </a>
+    <nav class="enlaces-topbar">
+      <a href="#area-cliente">Comprar y vender</a>
+      <a href="#area-admin">Administración</a>
+      <a href="login.html">Iniciar sesión</a>
+    </nav>
   </div>
-  <main>
-    <div class="card">
-      <h2>¿Qué quieres probar?</h2>
-      <ul class="lista-links">
-        <li><a href="registro.html">Registrarme (comprador o proveedor)</a></li>
-        <li><a href="login.html">Iniciar sesión</a></li>
-        <li><a href="inventario.html">Registrar un producto (proveedor)</a></li>
-        <li><a href="clientes.html">Gestionar clientes (administrador)</a></li>
-      </ul>
+
+  <!-- ================= ÁREA PÚBLICA: comprador y proveedor ================= -->
+  <section class="seccion" id="area-cliente">
+    <div class="contenedor hero">
+      <div class="hero-texto">
+        <p class="eyebrow">FSTENI58 · MARKETPLACE DE TENIS</p>
+        <h1>Conectamos proveedores mayoristas de tenis con quienes juegan.</h1>
+        <p class="subtitulo">Fsteni58 es el intermediario: los proveedores publican su inventario, los compradores encuentran raquetas, calzado y accesorios, y nosotros ponemos la plataforma en el medio.</p>
+        <div class="hero-cta">
+          <a href="registro.html" class="boton-principal" style="text-decoration:none;display:inline-block;text-align:center;">Crear una cuenta</a>
+          <button type="button" class="fantasma" onclick="location.href='login.html'">Ya tengo cuenta</button>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="300" fill="none"/>
+          <g stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="2">
+            <rect x="30" y="30" width="340" height="240" rx="6"/>
+            <line x1="200" y1="30" x2="200" y2="270"/>
+            <circle cx="200" cy="150" r="46" fill="none"/>
+            <line x1="30" y1="150" x2="370" y2="150" stroke-dasharray="4 6"/>
+          </g>
+          <circle cx="150" cy="95" r="16" fill="#FFF6EC"/>
+          <circle cx="260" cy="205" r="16" fill="#FFF6EC"/>
+        </svg>
+      </div>
     </div>
-  </main>
+
+    <div class="contenedor" style="margin-top:56px;">
+      <p class="eyebrow">LO QUE YA PUEDES HACER HOY</p>
+      <h2 style="margin:0 0 6px;">Para compradores y proveedores</h2>
+      <p class="subtitulo">Estas son las funciones que ya están construidas y en uso.</p>
+      <div class="rejilla">
+        <a class="opcion" href="registro.html">
+          <span class="opcion-rol">Comprador o proveedor</span>
+          <h3>Crear una cuenta</h3>
+          <p>Regístrate como comprador para adquirir productos, o como proveedor mayorista para publicar tu inventario.</p>
+        </a>
+        <a class="opcion" href="login.html">
+          <span class="opcion-rol">Comprador o proveedor</span>
+          <h3>Iniciar sesión</h3>
+          <p>Entra con tu correo y contraseña a tu cuenta existente.</p>
+        </a>
+        <a class="opcion" href="inventario.html">
+          <span class="opcion-rol">Proveedor</span>
+          <h3>Registrar un producto</h3>
+          <p>Da de alta un producto nuevo en tu inventario: nombre, categoría, precio y stock.</p>
+        </a>
+        <a class="opcion" href="actualizar-stock.html">
+          <span class="opcion-rol">Proveedor</span>
+          <h3>Actualizar stock</h3>
+          <p>Ajusta la cantidad disponible de un producto que ya registraste.</p>
+        </a>
+        <a class="opcion" href="tickets.html">
+          <span class="opcion-rol">Comprador</span>
+          <h3>Soporte y reportes</h3>
+          <p>Cuéntanos si algo salió mal con tu compra o tu cuenta y haz seguimiento a tu reporte.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ÁREA ADMINISTRATIVA ================= -->
+  <section class="seccion franja-admin" id="area-admin">
+    <div class="contenedor">
+      <p class="eyebrow">SOLO PARA EL EQUIPO FSTENI58</p>
+      <h2 style="margin:0 0 6px;">Panel de administración</h2>
+      <p class="subtitulo">Herramientas internas para gestionar clientes y atender la plataforma. No están pensadas para compradores ni proveedores.</p>
+      <div class="rejilla">
+        <a class="opcion" href="clientes.html">
+          <span class="opcion-rol">Administrador</span>
+          <h3>Gestionar clientes</h3>
+          <p>Consulta, crea, actualiza o desactiva cuentas de clientes registrados.</p>
+        </a>
+        <a class="opcion" href="admin-tickets.html">
+          <span class="opcion-rol">Administrador</span>
+          <h3>Bandeja de soporte</h3>
+          <p>Responde y cierra los reportes que envían los compradores.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="pie-sitio">Fsteni58 — Práctica Aplicada a Sistemas · Politécnico Grancolombiano</footer>
+
 </body>
 </html>

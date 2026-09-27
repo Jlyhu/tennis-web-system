@@ -2,27 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Soporte — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
-  <style>
-    .lista-tickets { margin-top: 28px; }
-    .ticket { background: var(--blanco); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px 18px; margin-bottom: 12px; }
-    .ticket-asunto { font-weight: 600; margin-bottom: 4px; }
-    .ticket-estado { font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
-    .ticket-estado.abierto { background: var(--morado-suave); color: var(--morado); }
-    .ticket-estado.respondido { background: var(--exito-suave); color: var(--exito); }
-    .ticket-estado.cerrado { background: #EEEDF5; color: var(--texto-suave); }
-    .ticket-respuesta { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--borde); font-size: 0.9rem; color: var(--texto-suave); }
-  </style>
 </head>
 <body>
   <div class="encabezado">
-    <a href="index.html" class="marca">Fsteni58</a>
-    <p>Administrador US10 — soporte al comprador</p>
+    <a href="index.html" class="marca"><span>Fsteni58</span></a>
+    <nav class="enlaces-topbar"><a href="index.html">Inicio</a></nav>
   </div>
   <main>
     <div class="tarjeta">
-      <h2>Reportar un problema</h2>
+      <h2>Reportar un problema <span style="font-size:0.7rem;font-weight:600;color:var(--texto-suave);">— Comprador</span></h2>
       <form id="formTicket">
         <div class="campo">
           <label for="compradorId">Tu id de comprador</label>
@@ -36,13 +30,13 @@
           <label for="descripcion">Cuéntanos qué pasó</label>
           <textarea id="descripcion" rows="3" required></textarea>
         </div>
-        <button type="submit">Enviar</button>
+        <button type="submit" class="boton-principal">Enviar</button>
       </form>
       <div id="mensaje" class="mensaje"></div>
     </div>
 
     <div class="lista-tickets">
-      <h2 style="font-family:'Montserrat',sans-serif;font-size:1.1rem;">Mis reportes</h2>
+      <h2 style="font-family:'Oswald',sans-serif;font-size:1.1rem;">Mis reportes</h2>
       <div id="listaTickets"></div>
     </div>
   </main>

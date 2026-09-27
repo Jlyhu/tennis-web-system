@@ -2,17 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Actualizar stock — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
   <div class="encabezado">
-    <a href="index.html" class="marca">Fsteni58</a>
-    <p>Proveedor US5 — actualizar stock</p>
+    <a href="index.html" class="marca"><span>Fsteni58</span></a>
+    <nav class="enlaces-topbar"><a href="index.html">Inicio</a></nav>
   </div>
   <main>
     <div class="tarjeta">
-      <h2>Actualizar stock de un producto</h2>
+      <h2>Actualizar stock <span style="font-size:0.7rem;font-weight:600;color:var(--texto-suave);">— Proveedor</span></h2>
       <form id="formStock">
         <div class="campo">
           <label for="productoId">Id del producto</label>
@@ -22,7 +26,7 @@
           <label for="stockNuevo">Stock nuevo</label>
           <input type="number" id="stockNuevo" min="0" step="1" required>
         </div>
-        <button type="submit">Actualizar</button>
+        <button type="submit" class="boton-principal">Actualizar</button>
       </form>
       <div id="mensaje" class="mensaje"></div>
     </div>

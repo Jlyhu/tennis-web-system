@@ -2,40 +2,57 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar producto — Fsteni58</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-  <div class="court-band">
-    <h1><a href="index.html">Fsteni58</a></h1>
-    <p>Proveedor US1 — registrar inventario</p>
+  <div class="encabezado">
+    <a href="index.html" class="marca"><span>Fsteni58</span></a>
+    <nav class="enlaces-topbar"><a href="index.html">Inicio</a></nav>
   </div>
   <main>
-    <div class="card">
-      <h2>Nuevo producto</h2>
+    <div class="tarjeta">
+      <h2>Nuevo producto <span style="font-size:0.7rem;font-weight:600;color:var(--texto-suave);">— Proveedor</span></h2>
       <form id="formProducto">
-        <label for="proveedorId">Id del proveedor</label>
-        <input type="text" id="proveedorId" placeholder="el id que te dio el registro" required>
+        <div class="campo">
+          <label for="proveedorId">Id del proveedor</label>
+          <input type="text" id="proveedorId" placeholder="el id que te dio el registro" required>
+        </div>
 
-        <label for="nombre">Nombre del producto</label>
-        <input type="text" id="nombre" required>
+        <div class="campo">
+          <label for="nombre">Nombre del producto</label>
+          <input type="text" id="nombre" required>
+        </div>
 
-        <label for="descripcion">Descripción</label>
-        <textarea id="descripcion" rows="2"></textarea>
+        <div class="campo">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" rows="2"></textarea>
+        </div>
 
-        <label for="categoria">Categoría</label>
-        <input type="text" id="categoria" placeholder="Equipamiento deportivo, Accesorios...">
+        <div class="campo">
+          <label for="categoria">Categoría</label>
+          <input type="text" id="categoria" placeholder="Equipamiento deportivo, Accesorios...">
+        </div>
 
-        <label for="precio">Precio (COP)</label>
-        <input type="number" id="precio" min="0" step="1" required>
+        <div class="campo">
+          <label for="precio">Precio (COP)</label>
+          <input type="number" id="precio" min="0" step="1" required>
+        </div>
 
-        <label for="stock">Stock</label>
-        <input type="number" id="stock" min="0" step="1" required>
+        <div class="campo">
+          <label for="stock">Stock</label>
+          <input type="number" id="stock" min="0" step="1" required>
+        </div>
 
-        <button type="submit">Registrar producto</button>
+        <button type="submit" class="boton-principal">Registrar producto</button>
       </form>
       <div id="mensaje" class="mensaje"></div>
     </div>
+    <nav class="enlaces"><a href="actualizar-stock.html">Actualizar el stock de un producto existente</a></nav>
   </main>
 
   <script>
