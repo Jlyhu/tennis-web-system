@@ -19,7 +19,7 @@ document.getElementById('formStock').addEventListener('submit', async (e) => {
       mensaje.textContent = datos.mensaje;
     } else {
       mensaje.className = 'mensaje error';
-      mensaje.textContent = datos.error || 'No se pudo actualizar el stock.';
+      mensaje.textContent = datos.error || Object.values(datos)[0] || 'No se pudo actualizar el stock.';
     }
   } catch (err) {
     mensaje.className = 'mensaje error';
