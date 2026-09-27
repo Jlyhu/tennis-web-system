@@ -26,12 +26,25 @@ public class AuthService {
         this.proveedorRepository = proveedorRepository;
     }
 
-    // Comprador US1
+    // Comprador US1 / Proveedor US1
     public UUID registrar(RegistroRequest request) {
         String correoNormalizado = request.getCorreo().trim().toLowerCase();
 
         if (usuarioRepository.existeCorreo(correoNormalizado)) {
             throw new CorreoDuplicadoException("Ese correo ya está registrado");
+        }
+
+        boolean esProveedor = "proveedor".equals(request.getRol());
+
+        // Un proveedor sin nombre de empresa o sin NIT no queda registrado como
+        // proveedor válido — antes esto se rellenaba con un texto de relleno.
+        if (esProveedor) {
+            if (request.getNombreEmpresa() == null || request.getNombreEmpresa().isBlank()) {
+                throw new IllegalArgumentException("El nombre de la empresa es obligatorio para proveedores");
+            }
+            if (request.getNit() == null || request.getNit().isBlank()) {
+                throw new IllegalArgumentException("El NIT es obligatorio para proveedores");
+            }
         }
 
         UUID rolId = usuarioRepository.buscarIdRolPorNombre(request.getRol())
@@ -45,8 +58,14 @@ public class AuthService {
 
         UUID idGenerado = usuarioRepository.guardar(nuevo);
 
-        if ("proveedor".equals(request.getRol())) {
-            proveedorRepository.guardar(idGenerado, request.getNombre() + " (empresa por definir)");
+        if (esProveedor) {
+            proveedorRepository.guardar(
+                idGenerado,
+                request.getNombreEmpresa().trim(),
+                request.getNit().trim(),
+                request.getTelefono() == null ? null : request.getTelefono().trim(),
+                request.getDireccion() == null ? null : request.getDireccion().trim()
+            );
         }
 
         return idGenerado;

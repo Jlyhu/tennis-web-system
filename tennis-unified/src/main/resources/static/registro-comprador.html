@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión — Fsteni58</title>
+  <title>Crear cuenta de comprador — Fsteni58</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,10 +16,16 @@
 
       <div class="marca">Fsteni58</div>
 
-      <h1>Inicia sesión</h1>
-      <p class="subtitulo">Entra con tu correo y contraseña para seguir comprando o gestionando tu inventario.</p>
+      <h1>Crea tu cuenta</h1>
+      <p class="subtitulo">Regístrate para comprar raquetas, calzado y accesorios de los proveedores de la red Fsteni58.</p>
 
-      <form id="form-login" novalidate>
+      <form id="form-registro" data-rol="comprador" novalidate>
+
+        <label class="campo">
+          <span class="etiqueta">Nombre completo</span>
+          <input type="text" id="nombre" name="nombre" autocomplete="name" placeholder="Nombre completo" required minlength="3" maxlength="150">
+          <span class="error" id="error-nombre"></span>
+        </label>
 
         <label class="campo">
           <span class="etiqueta">Correo electrónico</span>
@@ -30,7 +36,7 @@
         <label class="campo">
           <span class="etiqueta">Contraseña</span>
           <div class="campo-password">
-            <input type="password" id="contrasena" name="contrasena" autocomplete="current-password" placeholder="Tu contraseña" required minlength="8">
+            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8">
             <button type="button" class="ver-password" id="ver-password" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -41,15 +47,21 @@
           <span class="error" id="error-contrasena"></span>
         </label>
 
+        <label class="campo">
+          <span class="etiqueta">Confirmar contraseña</span>
+          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" placeholder="Repite tu contraseña" required minlength="8">
+          <span class="error" id="error-confirmar"></span>
+        </label>
+
         <div class="aviso" id="aviso" role="alert" hidden></div>
 
         <button type="submit" class="boton-principal" id="boton-enviar">
-          <span id="boton-texto">Entrar</span>
+          <span id="boton-texto">Crear cuenta</span>
         </button>
 
       </form>
 
-      <p class="pie">¿No tienes cuenta? <a href="registro.html">Regístrate</a></p>
+      <p class="pie">¿Ya tienes cuenta? <a href="login.html">Inicia sesión</a></p>
       <p class="pie"><a href="index.html">&larr; Volver al inicio</a></p>
 
     </div>
@@ -69,6 +81,6 @@
       });
     })();
   </script>
-  <script src="js/login.js"></script>
+  <script src="js/registro.js"></script>
 </body>
 </html>

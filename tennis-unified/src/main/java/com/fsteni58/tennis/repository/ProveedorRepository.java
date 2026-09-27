@@ -14,13 +14,13 @@ public class ProveedorRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public UUID guardar(UUID usuarioId, String nombreEmpresa) {
+    public UUID guardar(UUID usuarioId, String nombreEmpresa, String nit, String telefono, String direccion) {
         String sql = """
-            INSERT INTO proveedores (usuario_id, nombre_empresa, activo)
-            VALUES (?, ?, true)
+            INSERT INTO proveedores (usuario_id, nombre_empresa, nit, telefono, direccion, activo)
+            VALUES (?, ?, ?, ?, ?, true)
             RETURNING id
             """;
-        return jdbcTemplate.queryForObject(sql, UUID.class, usuarioId, nombreEmpresa);
+        return jdbcTemplate.queryForObject(sql, UUID.class, usuarioId, nombreEmpresa, nit, telefono, direccion);
     }
 
     public boolean existeActivo(UUID proveedorId) {

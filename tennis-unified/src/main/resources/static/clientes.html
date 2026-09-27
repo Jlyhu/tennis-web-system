@@ -6,26 +6,43 @@
   <title>Gestionar clientes — Fsteni58</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-  <div class="encabezado">
-    <a href="index.html#area-admin" class="marca"><span>Fsteni58</span></a>
-    <span class="etiqueta-admin">PANEL ADMIN</span>
-  </div>
-  <main class="ancho">
-    <div class="tarjeta ancha">
-      <h2>Clientes registrados</h2>
-      <table>
-        <thead>
-          <tr><th>Nombre</th><th>Correo</th><th>Estado</th><th></th></tr>
-        </thead>
-        <tbody id="tablaClientes"></tbody>
-      </table>
-      <div id="mensaje" class="mensaje"></div>
+
+  <div class="announcement-bar"></div>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo-group">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="9" stroke="#FFF" stroke-width="1.6"/>
+            <path d="M4 8c3 1.6 11 1.6 14 0M4 14c3-1.6 11-1.6 14 0" stroke="#FFF" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Fsteni58</span>
+      </a>
+      <nav class="nav-links">
+        <span class="eyebrow">PANEL ADMIN</span>
+      </nav>
     </div>
-  </main>
+  </header>
+
+  <div class="pagina">
+    <main class="ancho">
+      <div class="tarjeta">
+        <h2>Clientes registrados</h2>
+        <table>
+          <thead>
+            <tr><th>Nombre</th><th>Correo</th><th>Estado</th><th></th></tr>
+          </thead>
+          <tbody id="tablaClientes"></tbody>
+        </table>
+        <div id="mensaje" class="mensaje"></div>
+      </div>
+    </main>
+  </div>
 
   <script>
     async function cargarClientes() {

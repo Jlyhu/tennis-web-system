@@ -7,11 +7,21 @@ const botonEnviar = document.getElementById("boton-enviar");
 const botonTexto = document.getElementById("boton-texto");
 const aviso = document.getElementById("aviso");
 
+// El rol ya no se elige en un <select> — cada página (registro-comprador.html /
+// registro-proveedor.html) lo fija de antemano con data-rol="comprador|proveedor"
+// en la etiqueta <form>, para que un comprador nunca vea campos de proveedor y viceversa.
+const rolFijo = form.dataset.rol;
+
 const campoNombre = document.getElementById("nombre");
 const campoCorreo = document.getElementById("correo");
 const campoContrasena = document.getElementById("contrasena");
 const campoConfirmar = document.getElementById("confirmar");
-const campoRol = document.getElementById("rol");
+
+// Estos solo existen en registro-proveedor.html
+const campoNombreEmpresa = document.getElementById("nombreEmpresa");
+const campoNit = document.getElementById("nit");
+const campoTelefono = document.getElementById("telefono");
+const campoDireccion = document.getElementById("direccion");
 
 const verPasswordBtn = document.getElementById("ver-password");
 
@@ -42,7 +52,7 @@ function mostrarAviso(mensaje, tipo) {
 }
 
 // Validación básica en el cliente (la validación real y definitiva vive en el backend,
-// vía @Valid en RegistroRequest)
+// vía @Valid en RegistroRequest, y en AuthService para las reglas de proveedor)
 function validarEnCliente() {
   let esValido = true;
 
@@ -70,6 +80,17 @@ function validarEnCliente() {
   if (confirmar !== contrasena) {
     marcarError("confirmar", "Las contraseñas no coinciden");
     esValido = false;
+  }
+
+  if (rolFijo === "proveedor") {
+    if (!campoNombreEmpresa.value.trim()) {
+      marcarError("nombreEmpresa", "El nombre de la empresa es obligatorio");
+      esValido = false;
+    }
+    if (!campoNit.value.trim()) {
+      marcarError("nit", "El NIT es obligatorio");
+      esValido = false;
+    }
   }
 
   return esValido;
@@ -103,8 +124,15 @@ form.addEventListener("submit", async (evento) => {
     nombre: campoNombre.value.trim(),
     correo: campoCorreo.value.trim().toLowerCase(),
     contrasena: campoContrasena.value,
-    rol: campoRol.value
+    rol: rolFijo
   };
+
+  if (rolFijo === "proveedor") {
+    payload.nombreEmpresa = campoNombreEmpresa.value.trim();
+    payload.nit = campoNit.value.trim();
+    payload.telefono = campoTelefono.value.trim();
+    payload.direccion = campoDireccion.value.trim();
+  }
 
   botonEnviar.disabled = true;
   botonTexto.textContent = "Creando cuenta...";
