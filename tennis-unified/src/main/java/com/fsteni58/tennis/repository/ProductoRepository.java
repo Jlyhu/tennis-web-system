@@ -30,20 +30,32 @@ public class ProductoRepository {
                 request.getCategoria(), request.getPrecio(), request.getStock());
     }
 
+    public int actualizarStock(UUID productoId, int nuevoStock) {
+        String sql = "UPDATE productos SET stock = ? WHERE id = ? AND activo = true";
+        return jdbcTemplate.update(sql, nuevoStock, productoId);
+    }
+
+    public boolean existeProducto(UUID productoId) {
+        String sql = "SELECT COUNT(*) FROM productos WHERE id = ? AND activo = true";
+        Integer total = jdbcTemplate.queryForObject(sql, Integer.class, productoId);
+        return total != null && total > 0;
+    }
+
     public List<ProductoResponse> obtenerTodos() {
-    String sql = "SELECT id, nombre FROM productos";
-    return jdbcTemplate.query(sql, (rs, rowNum) -> new ProductoResponse(
-            UUID.fromString(rs.getString("id")),
-            rs.getString("nombre")
-    ));
-}
+        String sql = "SELECT id, nombre FROM productos";
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new ProductoResponse(
+                UUID.fromString(rs.getString("id")),
+                rs.getString("nombre")
+        ));
+    }
 
     public Optional<ProductoResponse> buscarPorId(UUID id) {
-    String sql = "SELECT id, nombre FROM productos WHERE id = ?";
-    List<ProductoResponse> resultados = jdbcTemplate.query(sql, (rs, rowNum) -> new ProductoResponse(
+        String sql = "SELECT id, nombre FROM productos WHERE id = ?";
+        List<ProductoResponse> resultados = jdbcTemplate.query(sql, (rs, rowNum) -> new ProductoResponse(
             UUID.fromString(rs.getString("id")),
             rs.getString("nombre")
-    ), id);
-    return resultados.stream().findFirst();
-}
+        ), id);
+        return resultados.stream().findFirst();
+    }
+
 }

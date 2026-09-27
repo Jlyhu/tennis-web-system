@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bandeja de soporte — Fsteni58</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    main { max-width: 640px; }
+    .ticket { background: var(--blanco); border: 1px solid var(--borde); border-radius: var(--radio); padding: 18px 20px; margin-bottom: 14px; }
+    .ticket-estado { font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+    .ticket-estado.abierto { background: var(--morado-suave); color: var(--morado); }
+    .ticket-estado.respondido { background: var(--exito-suave); color: var(--exito); }
+    .ticket-estado.cerrado { background: #EEEDF5; color: var(--texto-suave); }
+    .ticket-asunto { font-weight: 600; margin-bottom: 4px; }
+    .ticket-form { margin-top: 12px; display: flex; gap: 8px; }
+    .ticket-form textarea { flex: 1; font-family: 'Poppins', Arial, sans-serif; padding: 8px 10px; border: 1px solid var(--borde); border-radius: 8px; font-size: 0.88rem; }
+    .ticket-form button { width: auto; margin: 0; padding: 8px 16px; font-size: 0.85rem; }
+    .ticket-acciones { margin-top: 8px; }
+    .ticket-acciones button { width: auto; margin: 0 8px 0 0; padding: 6px 14px; font-size: 0.82rem; background: transparent; color: var(--texto-suave); border: 1px solid var(--borde); }
+  </style>
+</head>
+<body>
+  <div class="encabezado">
+    <a href="index.html" class="marca">Fsteni58</a>
+    <p>Administrador US10 — bandeja de soporte</p>
+  </div>
+  <main>
+    <div id="listaTickets"></div>
+  </main>
+
+  <script src="js/admin-tickets.js"></script>
+</body>
+</html>

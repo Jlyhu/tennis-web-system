@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Actualizar stock — Fsteni58</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="encabezado">
+    <a href="index.html" class="marca">Fsteni58</a>
+    <p>Proveedor US5 — actualizar stock</p>
+  </div>
+  <main>
+    <div class="tarjeta">
+      <h2>Actualizar stock de un producto</h2>
+      <form id="formStock">
+        <div class="campo">
+          <label for="productoId">Id del producto</label>
+          <input type="text" id="productoId" placeholder="el id que te dio el registro" required>
+        </div>
+        <div class="campo">
+          <label for="stockNuevo">Stock nuevo</label>
+          <input type="number" id="stockNuevo" min="0" step="1" required>
+        </div>
+        <button type="submit">Actualizar</button>
+      </form>
+      <div id="mensaje" class="mensaje"></div>
+    </div>
+    <nav class="enlaces"><a href="inventario.html">Registrar un producto nuevo</a></nav>
+  </main>
+
+  <script src="js/actualizar-stock.js"></script>
+</body>
+</html>

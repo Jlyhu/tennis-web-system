@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Soporte — Fsteni58</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    .lista-tickets { margin-top: 28px; }
+    .ticket { background: var(--blanco); border: 1px solid var(--borde); border-radius: var(--radio); padding: 16px 18px; margin-bottom: 12px; }
+    .ticket-asunto { font-weight: 600; margin-bottom: 4px; }
+    .ticket-estado { font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 8px; }
+    .ticket-estado.abierto { background: var(--morado-suave); color: var(--morado); }
+    .ticket-estado.respondido { background: var(--exito-suave); color: var(--exito); }
+    .ticket-estado.cerrado { background: #EEEDF5; color: var(--texto-suave); }
+    .ticket-respuesta { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--borde); font-size: 0.9rem; color: var(--texto-suave); }
+  </style>
+</head>
+<body>
+  <div class="encabezado">
+    <a href="index.html" class="marca">Fsteni58</a>
+    <p>Administrador US10 — soporte al comprador</p>
+  </div>
+  <main>
+    <div class="tarjeta">
+      <h2>Reportar un problema</h2>
+      <form id="formTicket">
+        <div class="campo">
+          <label for="compradorId">Tu id de comprador</label>
+          <input type="text" id="compradorId" placeholder="el id que te dio tu registro" required>
+        </div>
+        <div class="campo">
+          <label for="asunto">Asunto</label>
+          <input type="text" id="asunto" required>
+        </div>
+        <div class="campo">
+          <label for="descripcion">Cuéntanos qué pasó</label>
+          <textarea id="descripcion" rows="3" required></textarea>
+        </div>
+        <button type="submit">Enviar</button>
+      </form>
+      <div id="mensaje" class="mensaje"></div>
+    </div>
+
+    <div class="lista-tickets">
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:1.1rem;">Mis reportes</h2>
+      <div id="listaTickets"></div>
+    </div>
+  </main>
+
+  <script src="js/tickets.js"></script>
+</body>
+</html>
