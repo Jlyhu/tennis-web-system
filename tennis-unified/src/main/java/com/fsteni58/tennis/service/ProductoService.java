@@ -1,14 +1,12 @@
 package com.fsteni58.tennis.service;
 
 import com.fsteni58.tennis.dto.ProductoRequest;
-<<<<<<< HEAD
 import com.fsteni58.tennis.dto.ProductoResponse;
-=======
->>>>>>> feature/stock-y-tickets-soporte
 import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.ProductoRepository;
 import com.fsteni58.tennis.repository.ProveedorRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -45,16 +43,6 @@ public class ProductoService {
 
         return productoRepository.guardar(request);
     }
-<<<<<<< HEAD
-
-    public List<ProductoResponse> obtenerTodos() {
-        return productoRepository.obtenerTodos();
-    }
-
-    public ProductoResponse buscarPorId(UUID id) {
-        return productoRepository.buscarPorId(id)
-                .orElseThrow(() -> new ProductoNoEncontradoException("No se encontró el producto con el ID especificado: " + id));
-=======
     public void actualizarStock(UUID productoId, int nuevoStock) {
         if (nuevoStock < 0) {
             throw new IllegalArgumentException("El stock no puede ser negativo");
@@ -63,6 +51,14 @@ public class ProductoService {
             throw new ProductoNoEncontradoException("No existe un producto activo con id " + productoId);
         }
         productoRepository.actualizarStock(productoId, nuevoStock);
->>>>>>> feature/stock-y-tickets-soporte
+    }
+
+    public List<ProductoResponse> obtenerTodos() {
+        return productoRepository.obtenerTodos();
+    }
+
+    public ProductoResponse buscarPorId(UUID id) {
+        return productoRepository.buscarPorId(id)
+                .orElseThrow(() -> new ProductoNoEncontradoException("No se encontró el producto con el ID especificado: " + id));
     }
 }
