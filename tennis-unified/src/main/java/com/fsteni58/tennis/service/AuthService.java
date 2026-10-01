@@ -1,3 +1,17 @@
+/*
+ * Programa:     AuthService.java
+ * Versión:      1.1
+ * Fecha:        01/10/2026
+ * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
+ *               Moreno Cortes, Orosco Quemba
+ * Descripción:  Lógica de negocio del registro y el inicio de sesión
+ *               (Comprador US1, registro; Comprador US2, inicio de sesión;
+ *               y el registro de proveedores). Separada del controlador,
+ *               que solo recibe la petición HTTP.
+ * Cambios v1.1: registrar() ahora valida y guarda los datos reales de
+ *               empresa del proveedor (nombreEmpresa, nit, telefono,
+ *               direccion) en vez del texto de relleno que se usaba antes.
+ */
 package com.fsteni58.tennis.service;
 
 import com.fsteni58.tennis.dto.LoginRequest;
@@ -12,8 +26,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-// Toda la lógica de negocio del registro y el login vive aquí,
-// separada del controlador (que solo recibe la petición HTTP).
 @Service
 public class AuthService {
 
@@ -26,7 +38,17 @@ public class AuthService {
         this.proveedorRepository = proveedorRepository;
     }
 
-    // Comprador US1 / Proveedor US1
+    /**
+     * Registra un usuario nuevo, comprador o proveedor (Comprador US1,
+     * Proveedor US1). Si el rol es "proveedor", exige además nombre de
+     * empresa y NIT, y crea también el registro correspondiente en la
+     * tabla proveedores.
+     * @param request datos de registro
+     * @return id generado para el nuevo usuario
+     * @throws CorreoDuplicadoException si el correo ya está registrado
+     * @throws IllegalArgumentException si el rol es inválido, o si es
+     *         proveedor y faltan nombreEmpresa o nit
+     */
     public UUID registrar(RegistroRequest request) {
         String correoNormalizado = request.getCorreo().trim().toLowerCase();
 
@@ -71,7 +93,13 @@ public class AuthService {
         return idGenerado;
     }
 
-    // Comprador US2
+    /**
+     * Autentica a un usuario existente comparando la contraseña con su hash
+     * guardado (Comprador US2).
+     * @param request credenciales (correo y contraseña)
+     * @return el usuario autenticado
+     * @throws CredencialesInvalidasException si el usuario no existe o la contraseña no coincide
+     */
     public Usuario iniciarSesion(LoginRequest request) {
         String correoNormalizado = request.getCorreo().trim().toLowerCase();
 

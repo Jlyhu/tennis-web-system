@@ -1,7 +1,29 @@
+/*
+ * Programa:     tickets.js
+ * Versión:      1.0
+ * Fecha:        29/09/2026
+ * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
+ *               Moreno Cortes, Orosco Quemba
+ * Descripción:  Lógica de la vista tickets.html (Comprador US8, Generar PQRS).
+ *               Permite crear un reporte de soporte (POST /tickets) y
+ *               consultar los reportes propios de un comprador (GET /tickets/mios).
+ */
+
+/**
+ * Traduce el estado interno del ticket (abierto/respondido/cerrado) a un
+ * texto legible para el comprador.
+ * @param {string} estado Estado devuelto por el backend
+ * @returns {string} Texto en español para mostrar en pantalla
+ */
 function textoEstado(estado) {
   return { abierto: 'Abierto', respondido: 'Respondido', cerrado: 'Cerrado' }[estado] || estado;
 }
 
+/**
+ * Consulta y pinta en pantalla los tickets del comprador cuyo id está
+ * escrito en el campo #compradorId. Si el campo está vacío, muestra un
+ * mensaje de guía en vez de consultar el backend.
+ */
 async function cargarMisTickets() {
   const compradorId = document.getElementById('compradorId').value;
   const lista = document.getElementById('listaTickets');
@@ -33,6 +55,12 @@ async function cargarMisTickets() {
   }
 }
 
+// Envío del formulario para crear un nuevo ticket.
+// Defecto conocido (ver Test Case TC-001, PQRS): igual que en el
+// actualizar-stock.js original, solo se lee datos.error, por lo que un
+// error del backend bajo otra llave (ej. "mensaje" o el nombre del campo)
+// cae en el mensaje genérico de la línea de abajo. Pendiente aplicar aquí
+// el mismo ajuste ya hecho en actualizar-stock.js.
 document.getElementById('formTicket').addEventListener('submit', async (e) => {
   e.preventDefault();
   const mensaje = document.getElementById('mensaje');
@@ -68,4 +96,5 @@ document.getElementById('formTicket').addEventListener('submit', async (e) => {
   }
 });
 
+// Al cambiar el id de comprador, recarga automáticamente su lista de reportes.
 document.getElementById('compradorId').addEventListener('change', cargarMisTickets);

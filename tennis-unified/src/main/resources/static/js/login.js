@@ -1,3 +1,14 @@
+/*
+ * Programa:     login.js
+ * Versión:      1.0
+ * Fecha:        01/10/2026
+ * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
+ *               Moreno Cortes, Orosco Quemba
+ * Descripción:  Lógica de la vista login.html (Comprador US2, inicio de
+ *               sesión). Valida el formulario en el cliente, envía las
+ *               credenciales a POST /auth/login y muestra el resultado.
+ */
+
 // Backend servido desde el mismo Spring Boot (src/main/resources/static),
 // por eso la ruta es relativa.
 const ENDPOINT_LOGIN = "/auth/login";
@@ -18,6 +29,7 @@ verPasswordBtn.addEventListener("click", () => {
   verPasswordBtn.textContent = esTexto ? "Ver" : "Ocultar";
 });
 
+/** Limpia los mensajes de error y el aviso general antes de validar de nuevo. */
 function limpiarErrores() {
   document.querySelectorAll(".error").forEach(el => (el.textContent = ""));
   document.querySelectorAll("input").forEach(el => el.classList.remove("invalido"));
@@ -25,6 +37,11 @@ function limpiarErrores() {
   aviso.className = "aviso";
 }
 
+/**
+ * Marca un campo como inválido y muestra su mensaje de error específico.
+ * @param {string} campoId id del input (sin el prefijo "error-")
+ * @param {string} mensaje texto a mostrar bajo el campo
+ */
 function marcarError(campoId, mensaje) {
   const input = document.getElementById(campoId);
   const errorEl = document.getElementById("error-" + campoId);
@@ -32,13 +49,22 @@ function marcarError(campoId, mensaje) {
   if (errorEl) errorEl.textContent = mensaje;
 }
 
+/**
+ * Muestra el aviso general (éxito o fallo) encima del botón de envío.
+ * @param {string} mensaje texto a mostrar
+ * @param {string} tipo "exito" o "fallo", controla el color del aviso
+ */
 function mostrarAviso(mensaje, tipo) {
   aviso.hidden = false;
   aviso.textContent = mensaje;
   aviso.className = "aviso " + tipo;
 }
 
-// Validación básica en el cliente (la validación real vive en el backend)
+/**
+ * Valida el formulario en el cliente antes de enviarlo. La validación real
+ * y definitiva vive en el backend.
+ * @returns {boolean} true si correo y contraseña tienen un formato aceptable
+ */
 function validarEnCliente() {
   let esValido = true;
 
@@ -59,9 +85,13 @@ function validarEnCliente() {
   return esValido;
 }
 
-// El backend responde errores en dos formas distintas según el caso:
-//  - { "mensaje": "..." }  -> viene de CredencialesInvalidasException (401), etc.
-//  - { "nombreDeCampo": "mensaje de ese campo", ... }  -> viene de @Valid (MethodArgumentNotValidException)
+/**
+ * Elige el mensaje que se muestra cuando el backend responde con error.
+ * El backend usa dos formatos: {"mensaje": "..."} para errores de
+ * credenciales (401), y {"<campo>": "..."} para errores de validación de
+ * un campo (@Valid).
+ * @param {Object} datos JSON de error devuelto por el backend
+ */
 function mostrarErrorBackend(datos) {
   if (datos && typeof datos.mensaje === "string") {
     mostrarAviso(datos.mensaje, "fallo");

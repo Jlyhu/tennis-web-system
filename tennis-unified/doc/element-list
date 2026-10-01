@@ -1,0 +1,8 @@
+com.fsteni58.tennis
+com.fsteni58.tennis.config
+com.fsteni58.tennis.controller
+com.fsteni58.tennis.dto
+com.fsteni58.tennis.exception
+com.fsteni58.tennis.model
+com.fsteni58.tennis.repository
+com.fsteni58.tennis.service
