@@ -100,8 +100,10 @@ input:focus, select:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(229, 82, 0, 0.15);
 }
 
-/* Botones Universales */
-button, .boton-principal, .btn-primary {
+/* Botones Universales
+   CAMBIO: .btn-outline entra en la regla compartida para tener el mismo
+   padding, display y radio que .btn-primary (antes solo cambiaba color y borde). */
+button, .boton-principal, .btn-primary, .btn-outline {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -141,7 +143,10 @@ th { color: var(--text-secondary); font-weight: 600; }
 .nav-link { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
 .nav-link.active, .nav-link:hover { color: var(--primary); font-weight: 600; }
 .nav-actions { display: flex; align-items: center; gap: 20px; }
-.login-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: var(--primary); color: var(--white); font-weight: 600; border-radius: var(--radius-sm); }
+.login-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: var(--primary); color: var(--white); font-weight: 600; border-radius: var(--radius-sm); white-space: nowrap; }
+
+/* CAMBIO: el botón del carrito ya no ocupa el 100% de ancho (heredaba width:100% de "button") */
+.cart-btn { width: auto; gap: 8px; }
 
 .hero { max-width: 1440px; margin: 0 auto; padding: 80px; display: flex; align-items: center; gap: 48px; min-height: 640px; }
 .hero-text { flex: 1; display: flex; flex-direction: column; gap: 32px; }
@@ -279,4 +284,55 @@ th { color: var(--text-secondary); font-weight: 600; }
   .navbar-inner { padding: 0 20px; }
   .nav-links { display: none; }
   .footer-main, .footer-directory { flex-direction: column; gap: 40px; }
+}
+
+/* ===== 6. Catálogo (catalogo.html) y enlaces del index ===== */
+
+/* Las tarjetas de categoría del index ahora son enlaces <a> */
+.category-card { display: block; cursor: pointer; }
+.category-card img { transition: transform 0.3s; }
+.category-card:hover img { transform: scale(1.05); }
+
+.products-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.view-catalog { color: var(--primary); font-weight: 600; font-size: 0.95rem; }
+.view-catalog:hover { text-decoration: underline; }
+
+.catalogo { max-width: 1440px; margin: 0 auto; padding: 64px 80px 80px; }
+
+.catalogo-filtros { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.filtro {
+  width: auto;
+  padding: 10px 20px;
+  background: var(--white);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-warm);
+  border-radius: var(--radius-pill);
+  font-size: 0.9rem;
+}
+.filtro:hover { background: var(--bg-warm-lighter); color: var(--primary); }
+.filtro.activo { background: var(--primary); border-color: var(--primary); color: var(--white); }
+
+.catalogo-resumen { margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary); }
+
+.producto {
+  background: var(--white);
+  border: 1px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.producto-imagen { aspect-ratio: 1 / 1; background: var(--bg-warm-lighter); }
+.producto-imagen.sin-imagen img { display: none; }
+.producto-info { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.producto-categoria { font-size: 0.72rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.04em; }
+.producto-nombre { font-size: 1.05rem; font-weight: 700; }
+.producto-descripcion { font-size: 0.85rem; color: var(--text-secondary); }
+.producto-precio { margin-top: 4px; font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); }
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .catalogo { padding: 40px 20px; }
 }

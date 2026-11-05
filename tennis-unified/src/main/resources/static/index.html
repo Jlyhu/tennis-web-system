@@ -28,10 +28,10 @@
 
       <nav class="nav-links">
         <a href="index.html" class="nav-link active">Inicio</a>
-        <a href="#categorias" class="nav-link">Raquetas</a>
-        <a href="#categorias" class="nav-link">Calzado</a>
-        <a href="#categorias" class="nav-link">Accesorios</a>
-        <a href="#proveedores" class="nav-link highlight">Sección Proveedores</a>
+        <a href="catalogo.html?categoria=raquetas" class="nav-link">Raquetas</a>
+        <a href="catalogo.html?categoria=calzado" class="nav-link">Calzado</a>
+        <a href="catalogo.html?categoria=accesorios" class="nav-link">Accesorios</a>
+        <a href="proveedores.html" class="nav-link highlight">Sección Proveedores</a>
       </nav>
 
       <div class="nav-actions">
@@ -58,7 +58,7 @@
       <h1>Siente el Poder del Tenis con <span class="texto-naranja">Fsteni58</span></h1>
       <p class="hero-description">Explora libremente nuestra selección premium de raquetas, calzado de alto rendimiento y equipamiento profesional. Compra de forma directa o únete como proveedor de nuestra red.</p>
       <div class="hero-ctas">
-        <a href="#categorias" class="btn btn-primary">Explorar Catálogo</a>
+        <a href="catalogo.html" class="btn btn-primary">Explorar Catálogo</a>
         <a href="registro.html" class="btn btn-outline">Crear una cuenta</a>
       </div>
     </div>
@@ -67,35 +67,29 @@
     </div>
   </section>
 
-  <section class="categories-section" id="categorias">
-    <div class="section-header">
-      <span class="eyebrow">COLECCIONES FSTENI58</span>
-      <h2>Explora por categorías</h2>
-      <p class="subtitle">Lo que los proveedores de la red Fsteni58 ofrecen hoy.</p>
+  <div class="categories-grid">
+  <a class="category-card" href="catalogo.html?categoria=raquetas">
+    <img src="imagenes/categoria-raquetas.jpg" alt="Raquetas Premium">
+    <div class="category-info">
+      <h3>Raquetas Premium</h3>
+      <p>Publicadas por proveedores mayoristas</p>
     </div>
-    <div class="categories-grid">
-      <div class="category-card">
-        <img src="imagenes/categoria-raquetas.jpg" alt="Raquetas Premium">
-        <div class="category-info">
-          <h3>Raquetas Premium</h3>
-          <p>Publicadas por proveedores mayoristas</p>
-        </div>
-      </div>
-      <div class="category-card">
-        <img src="imagenes/categoria-calzado.jpg" alt="Zapatillas y Calzado">
-        <div class="category-info">
-          <h3>Zapatillas &amp; Calzado</h3>
-          <p>Publicadas por proveedores mayoristas</p>
-        </div>
-      </div>
-      <div class="category-card">
-        <img src="imagenes/categoria-accesorios.jpg" alt="Accesorios y Pelotas">
-        <div class="category-info">
-          <h3>Accesorios &amp; Pelotas</h3>
-          <p>Publicadas por proveedores mayoristas</p>
-        </div>
-      </div>
+  </a>
+  <a class="category-card" href="catalogo.html?categoria=calzado">
+    <img src="imagenes/categoria-calzado.jpg" alt="Zapatillas y Calzado">
+    <div class="category-info">
+      <h3>Zapatillas &amp; Calzado</h3>
+      <p>Publicadas por proveedores mayoristas</p>
     </div>
+  </a>
+  <a class="category-card" href="catalogo.html?categoria=accesorios">
+    <img src="imagenes/categoria-accesorios.jpg" alt="Accesorios y Pelotas">
+    <div class="category-info">
+      <h3>Accesorios &amp; Pelotas</h3>
+      <p>Publicadas por proveedores mayoristas</p>
+    </div>
+  </a>
+</div>
   </section>
 
   <section class="products-section">
@@ -104,7 +98,7 @@
         <span class="eyebrow">CATÁLOGO</span>
         <h2>Productos destacados</h2>
       </div>
-      <a href="#" class="view-catalog" aria-disabled="true" title="Disponible cuando exista el catálogo público">Ver catálogo completo</a>
+      <a href="catalogo.html" class="view-catalog">Ver catálogo completo</a>
     </div>
     <div class="products-grid">
       <div class="aviso-pendiente">
@@ -205,10 +199,10 @@
       <div class="footer-directory">
         <div class="dir-col">
           <h4>COMPRAR</h4>
-          <a href="#categorias">Todas las Raquetas</a>
-          <a href="#categorias">Zapatillas de Tenis</a>
-          <a href="#categorias">Overgrips &amp; Accesorios</a>
-        </div>
+          <a href="catalogo.html?categoria=raquetas">Todas las Raquetas</a>
+<a href="catalogo.html?categoria=calzado">Zapatillas de Tenis</a>
+<a href="catalogo.html?categoria=accesorios">Overgrips &amp; Accesorios</a>
+</div>
         <div class="dir-col">
           <h4>PROVEEDORES</h4>
           <a href="#proveedores">Alianza Comercial</a>

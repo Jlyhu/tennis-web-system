@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+  <div class="announcement-bar"></div>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo-group">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="9" stroke="#FFF" stroke-width="1.6"/>
+            <path d="M4 8c3 1.6 11 1.6 14 0M4 14c3-1.6 11-1.6 14 0" stroke="#FFF" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Fsteni58</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html?categoria=raquetas" class="nav-link">Raquetas</a>
+        <a href="catalogo.html?categoria=calzado" class="nav-link">Calzado</a>
+        <a href="catalogo.html?categoria=accesorios" class="nav-link">Accesorios</a>
+        <a href="index.html#proveedores" class="nav-link highlight">Sección Proveedores</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="login-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Iniciar Sesión
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Se usa <section> y no <main> porque en estilos.css el <main> está limitado a 480px -->
+  <section class="catalogo">
+    <div class="section-header">
+      <span class="eyebrow">CATÁLOGO FSTENI58</span>
+      <h2 id="catalogo-titulo">Todos los productos</h2>
+      <p class="subtitle">Raquetas, calzado y accesorios de la red de proveedores Fsteni58.</p>
+    </div>
+
+    <div class="catalogo-filtros">
+      <button type="button" class="filtro" data-categoria="todos">Todos</button>
+      <button type="button" class="filtro" data-categoria="raquetas">Raquetas Premium</button>
+      <button type="button" class="filtro" data-categoria="calzado">Zapatillas &amp; Calzado</button>
+      <button type="button" class="filtro" data-categoria="accesorios">Accesorios &amp; Pelotas</button>
+    </div>
+    <p class="catalogo-resumen" id="resumen"></p>
+
+    <div class="products-grid" id="grilla"></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 Fsteni58. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/catalogo.js"></script>
+</body>
+</html>
