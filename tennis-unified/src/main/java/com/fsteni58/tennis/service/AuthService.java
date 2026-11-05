@@ -1,7 +1,7 @@
 /*
  * Programa:     AuthService.java
- * Versión:      1.1
- * Fecha:        01/10/2026
+ * Versión:      1.2
+ * Fecha:        05/11/2026
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  Lógica de negocio del registro y el inicio de sesión
@@ -11,6 +11,9 @@
  * Cambios v1.1: registrar() ahora valida y guarda los datos reales de
  *               empresa del proveedor (nombreEmpresa, nit, telefono,
  *               direccion) en vez del texto de relleno que se usaba antes.
+ * Cambios v1.2: registrar() solo acepta los roles "comprador" y
+ *               "proveedor"; antes aceptaba cualquier rol existente en la
+ *               tabla roles, incluido administrador.
  */
 package com.fsteni58.tennis.service;
 
@@ -42,18 +45,24 @@ public class AuthService {
      * Registra un usuario nuevo, comprador o proveedor (Comprador US1,
      * Proveedor US1). Si el rol es "proveedor", exige además nombre de
      * empresa y NIT, y crea también el registro correspondiente en la
-     * tabla proveedores.
+     * tabla proveedores. El registro público solo permite estos dos roles.
      * @param request datos de registro
      * @return id generado para el nuevo usuario
      * @throws CorreoDuplicadoException si el correo ya está registrado
-     * @throws IllegalArgumentException si el rol es inválido, o si es
-     *         proveedor y faltan nombreEmpresa o nit
+     * @throws IllegalArgumentException si el rol no es comprador ni proveedor,
+     *         o si es proveedor y faltan nombreEmpresa o nit
      */
     public UUID registrar(RegistroRequest request) {
         String correoNormalizado = request.getCorreo().trim().toLowerCase();
 
         if (usuarioRepository.existeCorreo(correoNormalizado)) {
             throw new CorreoDuplicadoException("Ese correo ya está registrado");
+        }
+
+        // El registro público solo permite comprador o proveedor; un rol como
+        // administrador no se puede crear desde este endpoint.
+        if (!"comprador".equals(request.getRol()) && !"proveedor".equals(request.getRol())) {
+            throw new IllegalArgumentException("Rol inválido: " + request.getRol());
         }
 
         boolean esProveedor = "proveedor".equals(request.getRol());

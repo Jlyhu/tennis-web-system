@@ -1,7 +1,7 @@
 /*
  * Programa:     registro.js
- * Versión:      1.0
- * Fecha:        01/10/2026
+ * Versión:      1.1
+ * Fecha:        05/11/2026
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  Lógica compartida de las vistas registro-comprador.html y
@@ -11,6 +11,11 @@
  *               así un comprador nunca ve campos de proveedor y viceversa.
  *               Valida el formulario en el cliente, envía los datos a
  *               POST /auth/register y muestra el resultado.
+ * Cambios v1.1: la contraseña ahora debe tener entre 8 y 64 caracteres y
+ *               al menos un carácter especial (misma regla que
+ *               RegistroRequest.java). Se eliminó el manejador del botón
+ *               de mostrar/ocultar contraseña, porque ya lo maneja el
+ *               <script> de cada HTML y estaba duplicado.
  */
 
 // Backend servido desde el mismo Spring Boot (src/main/resources/static),
@@ -38,13 +43,12 @@ const campoNit = document.getElementById("nit");
 const campoTelefono = document.getElementById("telefono");
 const campoDireccion = document.getElementById("direccion");
 
-const verPasswordBtn = document.getElementById("ver-password");
+// Un carácter especial es cualquiera que no sea letra, número ni espacio.
+// Las tildes y la ñ cuentan como letras, no como especiales.
+const especialRegex = /[^\p{L}\p{N}\s]/u;
 
-verPasswordBtn.addEventListener("click", () => {
-  const esTexto = campoContrasena.type === "text";
-  campoContrasena.type = esTexto ? "password" : "text";
-  verPasswordBtn.textContent = esTexto ? "Ver" : "Ocultar";
-});
+// El botón de mostrar/ocultar contraseña lo maneja el <script> que está
+// dentro de cada HTML de registro, no este archivo.
 
 /** Limpia los mensajes de error y el aviso general antes de validar de nuevo. */
 function limpiarErrores() {
@@ -102,8 +106,11 @@ function validarEnCliente() {
     esValido = false;
   }
 
-  if (contrasena.length < 8) {
-    marcarError("contrasena", "Debe tener al menos 8 caracteres");
+  if (contrasena.length < 8 || contrasena.length > 64) {
+    marcarError("contrasena", "Debe tener entre 8 y 64 caracteres");
+    esValido = false;
+  } else if (!especialRegex.test(contrasena)) {
+    marcarError("contrasena", "Debe incluir al menos un carácter especial (ej. ! @ # $ %)");
     esValido = false;
   }
 

@@ -1,7 +1,7 @@
 /*
  * Programa:     RegistroRequest.java
- * Versión:      1.0
- * Fecha:        30/09/2026
+ * Versión:      1.1
+ * Fecha:        05/11/2026
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  DTO de entrada para el registro de usuarios, comprador o
@@ -11,11 +11,15 @@
  *               en AuthController; los campos exclusivos de proveedor
  *               (nombreEmpresa, nit, telefono, direccion) se validan en
  *               AuthService.registrar() cuando el rol es "proveedor".
+ * Cambios v1.1: la contraseña ahora exige entre 8 y 64 caracteres y al
+ *               menos un carácter especial (letra, número y espacio no
+ *               cuentan como especiales).
  */
 package com.fsteni58.tennis.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegistroRequest {
@@ -29,9 +33,13 @@ public class RegistroRequest {
     @Email(message = "El correo no tiene un formato válido")
     private String correo;
 
-    /** Contraseña del usuario. Obligatoria, con mínimo 8 caracteres. */
+    /**
+     * Contraseña del usuario. Obligatoria, entre 8 y 64 caracteres y con al
+     * menos un carácter especial (cualquiera que no sea letra, número ni espacio).
+     */
     @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Size(min = 8, max = 64, message = "La contraseña debe tener entre 8 y 64 caracteres")
+    @Pattern(regexp = ".*[^\\p{L}\\p{N}\\s].*", message = "La contraseña debe incluir al menos un carácter especial")
     private String contrasena;
 
     /** Rol del usuario (comprador o proveedor). Obligatorio, no puede estar vacío. */

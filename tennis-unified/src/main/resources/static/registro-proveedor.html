@@ -36,7 +36,7 @@
         <label class="campo">
           <span class="etiqueta">Contraseña</span>
           <div class="campo-password">
-            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8">
+            <input type="password" id="contrasena" name="contrasena" autocomplete="new-password" placeholder="8 a 64 caracteres, con un carácter especial" required minlength="8" maxlength="64">
             <button type="button" class="ver-password" id="ver-password" aria-label="Mostrar contraseña" aria-pressed="false">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
@@ -49,7 +49,7 @@
 
         <label class="campo">
           <span class="etiqueta">Confirmar contraseña</span>
-          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" placeholder="Repite tu contraseña" required minlength="8">
+          <input type="password" id="confirmar" name="confirmar" autocomplete="new-password" placeholder="Repite tu contraseña" required minlength="8" maxlength="64">
           <span class="error" id="error-confirmar"></span>
         </label>
 

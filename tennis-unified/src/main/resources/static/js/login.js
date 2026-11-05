@@ -21,13 +21,6 @@ const aviso = document.getElementById("aviso");
 const campoCorreo = document.getElementById("correo");
 const campoContrasena = document.getElementById("contrasena");
 
-const verPasswordBtn = document.getElementById("ver-password");
-
-verPasswordBtn.addEventListener("click", () => {
-  const esTexto = campoContrasena.type === "text";
-  campoContrasena.type = esTexto ? "password" : "text";
-  verPasswordBtn.textContent = esTexto ? "Ver" : "Ocultar";
-});
 
 /** Limpia los mensajes de error y el aviso general antes de validar de nuevo. */
 function limpiarErrores() {
