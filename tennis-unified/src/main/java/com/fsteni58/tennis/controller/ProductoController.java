@@ -15,6 +15,8 @@ package com.fsteni58.tennis.controller;
 import com.fsteni58.tennis.dto.ActualizarStockRequest;
 import com.fsteni58.tennis.dto.ProductoRequest;
 import com.fsteni58.tennis.dto.ProductoResponse;
+import com.fsteni58.tennis.dto.ProductoCatalogoResponse;
+import java.util.List;
 import com.fsteni58.tennis.service.ProductoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -61,4 +63,12 @@ public class ProductoController {
         return ResponseEntity.ok(Map.of("mensaje", "Stock actualizado correctamente"));
     }
 
+        /**
+     * Lista los productos activos del catálogo público.
+     * @return 200 OK con la lista de productos (vacía si no hay ninguno)
+     */
+    @GetMapping
+    public ResponseEntity<List<ProductoCatalogoResponse>> listar() {
+        return ResponseEntity.ok(productoService.listarCatalogo());
+    }
 }

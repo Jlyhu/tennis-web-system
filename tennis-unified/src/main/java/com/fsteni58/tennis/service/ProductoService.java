@@ -13,6 +13,8 @@ package com.fsteni58.tennis.service;
 
 import com.fsteni58.tennis.dto.ProductoRequest;
 import com.fsteni58.tennis.dto.ProductoResponse;
+import com.fsteni58.tennis.dto.ProductoCatalogoResponse;
+
 import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.ProductoRepository;
 import com.fsteni58.tennis.repository.ProveedorRepository;
@@ -98,6 +100,14 @@ public class ProductoService {
      */
     public List<ProductoResponse> obtenerTodos() {
         return productoRepository.obtenerTodos();
+    }
+
+        /**
+     * Retorna los productos activos del catálogo público, con su imagen.
+     * @return lista de productos activos
+     */
+    public List<ProductoCatalogoResponse> listarCatalogo() {
+        return productoRepository.listarCatalogo();
     }
 
     /**

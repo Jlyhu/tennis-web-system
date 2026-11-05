@@ -13,6 +13,7 @@ package com.fsteni58.tennis.repository;
 
 import com.fsteni58.tennis.dto.ProductoRequest;
 import com.fsteni58.tennis.dto.ProductoResponse;
+import com.fsteni58.tennis.dto.ProductoCatalogoResponse;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -92,6 +93,34 @@ public class ProductoRepository {
             rs.getString("nombre")
         ), id);
         return resultados.stream().findFirst();
+    }
+
+        /**
+     * Lista los productos activos del catálogo público, con su imagen.
+     * Se ordenan por categoría (raquetas, calzado, accesorios) y luego por nombre.
+     * @return lista de productos activos
+     */
+    public List<ProductoCatalogoResponse> listarCatalogo() {
+        String sql = """
+            SELECT id, nombre, descripcion, categoria, precio, stock, imagen_url
+            FROM productos
+            WHERE activo = true
+            ORDER BY CASE categoria
+                         WHEN 'raquetas' THEN 1
+                         WHEN 'calzado' THEN 2
+                         WHEN 'accesorios' THEN 3
+                         ELSE 4
+                     END, nombre
+            """;
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new ProductoCatalogoResponse(
+                (UUID) rs.getObject("id"),
+                rs.getString("nombre"),
+                rs.getString("descripcion"),
+                rs.getString("categoria"),
+                rs.getBigDecimal("precio"),
+                rs.getInt("stock"),
+                rs.getString("imagen_url")
+        ));
     }
 
 }
