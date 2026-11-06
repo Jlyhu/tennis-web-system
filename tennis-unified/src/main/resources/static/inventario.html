@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
@@ -26,19 +27,17 @@
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Inicio</a>
       </nav>
+      <div class="nav-actions">
+        <a href="login.html" id="btn-login" class="login-btn">Iniciar Sesión</a>
+      </div>
     </div>
   </header>
 
   <div class="pagina">
     <main>
       <div class="tarjeta">
-        <h2>Nuevo producto</h2>
+        <h2>Nuevo producto <span class="rol">— Proveedor</span></h2>
         <form id="formProducto">
-          <div class="campo">
-            <label for="proveedorId">Id del proveedor</label>
-            <input type="text" id="proveedorId" placeholder="El id que te dio el registro" required>
-          </div>
-
           <div class="campo">
             <label for="nombre">Nombre del producto</label>
             <input type="text" id="nombre" required>
@@ -51,7 +50,12 @@
 
           <div class="campo">
             <label for="categoria">Categoría</label>
-            <input type="text" id="categoria" placeholder="Equipamiento deportivo, accesorios...">
+            <select id="categoria" required>
+              <option value="">Elige una categoría</option>
+              <option value="raquetas">Raquetas Premium</option>
+              <option value="calzado">Zapatillas &amp; Calzado</option>
+              <option value="accesorios">Accesorios &amp; Pelotas</option>
+            </select>
           </div>
 
           <div class="campo">
@@ -72,41 +76,7 @@
     </main>
   </div>
 
-  <script>
-    document.getElementById('formProducto').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const mensaje = document.getElementById('mensaje');
-      mensaje.className = 'mensaje';
-
-      const cuerpo = {
-        proveedorId: document.getElementById('proveedorId').value,
-        nombre: document.getElementById('nombre').value,
-        descripcion: document.getElementById('descripcion').value,
-        categoria: document.getElementById('categoria').value,
-        precio: parseFloat(document.getElementById('precio').value),
-        stock: parseInt(document.getElementById('stock').value, 10)
-      };
-
-      try {
-        const respuesta = await fetch('/productos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(cuerpo)
-        });
-        const datos = await respuesta.json();
-
-        if (respuesta.ok) {
-          mensaje.className = 'mensaje exito';
-          mensaje.textContent = 'Producto registrado. Id: ' + datos.id;
-        } else {
-          mensaje.className = 'mensaje error';
-          mensaje.textContent = datos.error || 'No se pudo registrar el producto.';
-        }
-      } catch (err) {
-        mensaje.className = 'mensaje error';
-        mensaje.textContent = 'No se pudo conectar con el servidor.';
-      }
-    });
-  </script>
+  <script src="js/sesion.js"></script>
+  <script src="js/inventario.js"></script>
 </body>
 </html>

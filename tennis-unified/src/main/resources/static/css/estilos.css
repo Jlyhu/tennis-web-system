@@ -393,3 +393,11 @@ th { color: var(--text-secondary); font-weight: 600; }
   .carrito-item { grid-template-columns: 64px 1fr; }
   .carrito-cantidad, .carrito-subtotal, .btn-quitar { grid-column: 2; justify-self: start; }
 }
+
+/* Estados de los reportes (PQRS) */
+.ticket-estado { display: inline-block; padding: 3px 10px; border-radius: var(--radius-pill); font-size: 0.72rem; font-weight: 600; margin-bottom: 8px; }
+.ticket-estado.abierto { background: var(--bg-warm-lighter); color: var(--primary-dark); }
+.ticket-estado.respondido { background: var(--success-bg); color: var(--success); }
+.ticket-estado.cerrado { background: var(--border-warm); color: var(--text-secondary); }
+.ticket-asunto { font-weight: 700; margin-bottom: 4px; }
+.ticket-respuesta { margin-top: 10px; padding: 10px 12px; background: var(--bg-warm-lighter); border-radius: var(--radius-sm); font-size: 0.9rem; }

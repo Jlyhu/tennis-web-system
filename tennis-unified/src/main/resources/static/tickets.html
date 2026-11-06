@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
 
@@ -25,7 +26,11 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html" class="nav-link">Catálogo</a>
       </nav>
+      <div class="nav-actions">
+        <a href="login.html" id="btn-login" class="login-btn">Iniciar Sesión</a>
+      </div>
     </div>
   </header>
 
@@ -34,10 +39,6 @@
       <div class="tarjeta">
         <h2>Reportar un problema <span class="rol">— Comprador</span></h2>
         <form id="formTicket">
-          <div class="campo">
-            <label for="compradorId">Tu id de comprador</label>
-            <input type="text" id="compradorId" placeholder="El id que te dio tu registro" required>
-          </div>
           <div class="campo">
             <label for="asunto">Asunto</label>
             <input type="text" id="asunto" required>
@@ -58,6 +59,8 @@
     </main>
   </div>
 
+  <script src="js/sesion.js"></script>
+  <script src="js/productos-ui.js"></script>
   <script src="js/tickets.js"></script>
 </body>
 </html>

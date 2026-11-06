@@ -1,13 +1,23 @@
 /*
  * Programa:     tickets.js
- * Versión:      1.0
- * Fecha:        29/09/2026
+ * Versión:      2.0
+ * Fecha:        05/11/2026
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  Lógica de la vista tickets.html (Comprador US8, Generar PQRS).
  *               Permite crear un reporte de soporte (POST /tickets) y
- *               consultar los reportes propios de un comprador (GET /tickets/mios).
+ *               consultar los reportes propios (GET /tickets/mios).
+ * Cambios v2.0: el id del comprador sale de la sesión (ya no se escribe a
+ *               mano); si no hay sesión de comprador, lleva al login y vuelve
+ *               aquí; los errores del backend se leen de "mensaje" o "error";
+ *               los textos se escapan antes de pintarlos.
+ *               Requiere cargar antes js/sesion.js y js/productos-ui.js.
  */
+
+const sesionActual = obtenerSesion();
+if (!sesionActual || sesionActual.rol !== 'comprador') {
+  window.location.href = 'login.html?volver=tickets.html';
+}
 
 /**
  * Traduce el estado interno del ticket (abierto/respondido/cerrado) a un
@@ -20,33 +30,38 @@ function textoEstado(estado) {
 }
 
 /**
- * Consulta y pinta en pantalla los tickets del comprador cuyo id está
- * escrito en el campo #compradorId. Si el campo está vacío, muestra un
- * mensaje de guía en vez de consultar el backend.
+ * Saca un texto de error de la respuesta del backend. Acepta {"mensaje"},
+ * {"error"} o un mapa campo -> mensaje (errores de validación).
+ * @param {Object} datos cuerpo JSON de la respuesta
+ * @param {string} porDefecto texto si no se encuentra ninguno
+ * @returns {string} mensaje para el usuario
  */
+function textoDeError(datos, porDefecto) {
+  if (datos && typeof datos.mensaje === 'string') return datos.mensaje;
+  if (datos && typeof datos.error === 'string') return datos.error;
+  const primero = datos ? Object.values(datos).find(v => typeof v === 'string') : null;
+  return primero || porDefecto;
+}
+
+/** Consulta y pinta los tickets del comprador que inició sesión. */
 async function cargarMisTickets() {
-  const compradorId = document.getElementById('compradorId').value;
   const lista = document.getElementById('listaTickets');
-  if (!compradorId) {
-    lista.innerHTML = '<p style="color:var(--texto-suave);font-size:0.9rem;">Escribe tu id de comprador arriba para ver tus reportes.</p>';
-    return;
-  }
   try {
-    const respuesta = await fetch(`/tickets/mios?compradorId=${compradorId}`);
+    const respuesta = await fetch(`/tickets/mios?compradorId=${sesionActual.id}`);
     const tickets = await respuesta.json();
     lista.innerHTML = '';
-    if (tickets.length === 0) {
-      lista.innerHTML = '<p style="color:var(--texto-suave);font-size:0.9rem;">Todavía no tienes reportes.</p>';
+    if (!respuesta.ok || tickets.length === 0) {
+      lista.innerHTML = '<p style="color:var(--text-secondary);font-size:0.9rem;">Todavía no tienes reportes.</p>';
       return;
     }
     tickets.forEach(t => {
       const div = document.createElement('div');
       div.className = 'ticket';
       div.innerHTML = `
-        <span class="ticket-estado ${t.estado}">${textoEstado(t.estado)}</span>
-        <div class="ticket-asunto">${t.asunto}</div>
-        <div>${t.descripcion}</div>
-        ${t.respuesta ? `<div class="ticket-respuesta"><strong>Respuesta:</strong> ${t.respuesta}</div>` : ''}
+        <span class="ticket-estado ${escaparHtml(t.estado)}">${escaparHtml(textoEstado(t.estado))}</span>
+        <div class="ticket-asunto">${escaparHtml(t.asunto)}</div>
+        <div>${escaparHtml(t.descripcion)}</div>
+        ${t.respuesta ? `<div class="ticket-respuesta"><strong>Respuesta:</strong> ${escaparHtml(t.respuesta)}</div>` : ''}
       `;
       lista.appendChild(div);
     });
@@ -56,18 +71,13 @@ async function cargarMisTickets() {
 }
 
 // Envío del formulario para crear un nuevo ticket.
-// Defecto conocido (ver Test Case TC-001, PQRS): igual que en el
-// actualizar-stock.js original, solo se lee datos.error, por lo que un
-// error del backend bajo otra llave (ej. "mensaje" o el nombre del campo)
-// cae en el mensaje genérico de la línea de abajo. Pendiente aplicar aquí
-// el mismo ajuste ya hecho en actualizar-stock.js.
 document.getElementById('formTicket').addEventListener('submit', async (e) => {
   e.preventDefault();
   const mensaje = document.getElementById('mensaje');
   mensaje.className = 'mensaje';
 
   const cuerpo = {
-    compradorId: document.getElementById('compradorId').value,
+    compradorId: sesionActual.id,
     asunto: document.getElementById('asunto').value,
     descripcion: document.getElementById('descripcion').value
   };
@@ -78,7 +88,7 @@ document.getElementById('formTicket').addEventListener('submit', async (e) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(cuerpo)
     });
-    const datos = await respuesta.json();
+    const datos = await respuesta.json().catch(() => ({}));
 
     if (respuesta.ok) {
       mensaje.className = 'mensaje exito';
@@ -88,7 +98,7 @@ document.getElementById('formTicket').addEventListener('submit', async (e) => {
       cargarMisTickets();
     } else {
       mensaje.className = 'mensaje error';
-      mensaje.textContent = datos.error || 'No se pudo enviar el reporte.';
+      mensaje.textContent = textoDeError(datos, 'No se pudo enviar el reporte.');
     }
   } catch (err) {
     mensaje.className = 'mensaje error';
@@ -96,5 +106,4 @@ document.getElementById('formTicket').addEventListener('submit', async (e) => {
   }
 });
 
-// Al cambiar el id de comprador, recarga automáticamente su lista de reportes.
-document.getElementById('compradorId').addEventListener('change', cargarMisTickets);
+cargarMisTickets();
