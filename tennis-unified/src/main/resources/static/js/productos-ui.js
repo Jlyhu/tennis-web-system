@@ -62,6 +62,7 @@ function tarjetaProducto(p) {
     ? `<img src="${escaparHtml(p.imagenUrl)}" alt="${escaparHtml(p.nombre)}"
             onerror="this.parentElement.classList.add('sin-imagen')">`
     : '';
+  const agotado = Number(p.stock) <= 0;
 
   return `
     <article class="producto">
@@ -71,6 +72,9 @@ function tarjetaProducto(p) {
         <h3 class="producto-nombre">${escaparHtml(p.nombre)}</h3>
         <p class="producto-descripcion">${escaparHtml(p.descripcion)}</p>
         <span class="producto-precio">${formatearPrecio(p.precio)}</span>
+        <button type="button" class="btn-agregar" data-producto-id="${escaparHtml(p.id)}" ${agotado ? 'disabled' : ''}>
+          ${agotado ? 'Agotado' : 'Agregar al carrito'}
+        </button>
       </div>
     </article>
   `;
