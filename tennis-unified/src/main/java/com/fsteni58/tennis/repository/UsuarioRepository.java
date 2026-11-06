@@ -87,4 +87,17 @@ public class UsuarioRepository {
             return Optional.empty();
         }, correo);
     }
+
+        /**
+     * Busca el nombre de un rol a partir de su id.
+     * @param rolId id del rol
+     * @return el nombre del rol, o vacío si no existe
+     */
+    public Optional<String> buscarNombreRolPorId(UUID rolId) {
+        String sql = "SELECT nombre_rol FROM roles WHERE id = ?";
+        return jdbcTemplate.query(sql, rs -> {
+            if (rs.next()) return Optional.of(rs.getString("nombre_rol"));
+            return Optional.empty();
+        }, rolId);
+    }
 }

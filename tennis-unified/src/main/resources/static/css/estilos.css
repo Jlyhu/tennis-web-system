@@ -336,3 +336,7 @@ th { color: var(--text-secondary); font-weight: 600; }
 @media (max-width: 768px) {
   .catalogo { padding: 40px 20px; }
 }
+
+/* Botón "Cerrar sesión" del menú */
+.login-btn-salir { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.login-btn-salir:hover { background: var(--primary); color: var(--white); }

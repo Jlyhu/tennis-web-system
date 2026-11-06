@@ -16,7 +16,7 @@ package com.fsteni58.tennis.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -57,4 +57,18 @@ public class ProveedorRepository {
         Integer total = jdbcTemplate.queryForObject(sql, Integer.class, proveedorId);
         return total != null && total > 0;
     }
+
+           /**
+        * Busca el id del proveedor activo asociado a un usuario.
+        * @param usuarioId id del usuario (con rol proveedor)
+        * @return el id del proveedor, o vacío si el usuario no es proveedor
+        */
+       public Optional<UUID> buscarIdPorUsuario(UUID usuarioId) {
+           String sql = "SELECT id FROM proveedores WHERE usuario_id = ? AND activo = true";
+           return jdbcTemplate.query(sql, rs -> {
+               if (rs.next()) return Optional.of((UUID) rs.getObject("id"));
+               return Optional.empty();
+           }, usuarioId);
+       }
+
 }

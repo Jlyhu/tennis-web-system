@@ -121,4 +121,24 @@ public class AuthService {
 
         return usuario;
     }
+
+        /**
+     * Obtiene el nombre del rol de un usuario (por ejemplo "comprador" o "proveedor").
+     * @param usuario usuario autenticado
+     * @return nombre del rol
+     * @throws IllegalStateException si el rol del usuario no existe en la tabla roles
+     */
+    public String obtenerNombreRol(Usuario usuario) {
+        return usuarioRepository.buscarNombreRolPorId(usuario.getRolId())
+                .orElseThrow(() -> new IllegalStateException("El usuario no tiene un rol válido"));
+    }
+
+    /**
+     * Obtiene el id de proveedor de un usuario, si lo tiene.
+     * @param usuario usuario autenticado
+     * @return id del proveedor, o null si el usuario no es proveedor
+     */
+    public UUID obtenerProveedorId(Usuario usuario) {
+        return proveedorRepository.buscarIdPorUsuario(usuario.getId()).orElse(null);
+    }
 }

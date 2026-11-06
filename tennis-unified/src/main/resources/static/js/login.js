@@ -1,17 +1,25 @@
 /*
  * Programa:     login.js
- * Versión:      1.0
- * Fecha:        01/10/2026
+ * Versión:      1.1
+ * Fecha:        05/11/2026
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  Lógica de la vista login.html (Comprador US2, inicio de
  *               sesión). Valida el formulario en el cliente, envía las
- *               credenciales a POST /auth/login y muestra el resultado.
+ *               credenciales a POST /auth/login, guarda la sesión
+ *               (sesion.js) y lleva al usuario al panel de su rol.
+ * Cambios v1.1: se guarda la sesión y se redirige según el rol; se
+ *               eliminó el manejador duplicado del botón de ver contraseña
+ *               (ya lo maneja el <script> de login.html). Requiere cargar
+ *               js/sesion.js antes que este archivo.
  */
 
 // Backend servido desde el mismo Spring Boot (src/main/resources/static),
 // por eso la ruta es relativa.
 const ENDPOINT_LOGIN = "/auth/login";
+
+// Solo se acepta volver a una página .html del mismo sitio (evita redirigir a sitios externos).
+const VOLVER_VALIDO = /^[\w-]+\.html(\?[\w=&%-]*)?$/;
 
 const form = document.getElementById("form-login");
 const botonEnviar = document.getElementById("boton-enviar");
@@ -20,7 +28,6 @@ const aviso = document.getElementById("aviso");
 
 const campoCorreo = document.getElementById("correo");
 const campoContrasena = document.getElementById("contrasena");
-
 
 /** Limpia los mensajes de error y el aviso general antes de validar de nuevo. */
 function limpiarErrores() {
@@ -98,6 +105,21 @@ function mostrarErrorBackend(datos) {
   mostrarAviso("No se pudo iniciar sesión.", "fallo");
 }
 
+/**
+ * Decide a qué página ir después de iniciar sesión. Un comprador vuelve a
+ * la página de la que venía (parámetro ?volver=) si es válida; los demás
+ * roles van a su panel.
+ * @param {string} rol rol del usuario
+ * @returns {string} nombre del archivo HTML de destino
+ */
+function elegirDestino(rol) {
+  const volver = new URLSearchParams(window.location.search).get("volver");
+  if (rolBase(rol) === "comprador" && volver && VOLVER_VALIDO.test(volver)) {
+    return volver;
+  }
+  return destinoDeRol(rol);
+}
+
 form.addEventListener("submit", async (evento) => {
   evento.preventDefault();
   limpiarErrores();
@@ -124,7 +146,11 @@ form.addEventListener("submit", async (evento) => {
     const datos = await respuesta.json();
 
     if (respuesta.ok) {
-      mostrarAviso("Bienvenido/a, " + datos.nombre, "exito");
+      guardarSesion(datos);
+      mostrarAviso("Bienvenido/a, " + datos.nombre + ". Entrando...", "exito");
+      setTimeout(() => {
+        window.location.href = elegirDestino(datos.rol);
+      }, 700);
     } else {
       mostrarErrorBackend(datos);
     }

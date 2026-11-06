@@ -43,7 +43,7 @@
           </svg>
           <span class="cart-count">0</span>
         </button>
-        <a href="login.html" class="login-btn">
+          <a href="login.html" id="btn-login" class="login-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -92,7 +92,7 @@
 </div>
   </section>
 
-  <section class="products-section">
+    <section class="products-section">
     <div class="products-header">
       <div class="section-header">
         <span class="eyebrow">CATÁLOGO</span>
@@ -100,11 +100,8 @@
       </div>
       <a href="catalogo.html" class="view-catalog">Ver catálogo completo</a>
     </div>
-    <div class="products-grid">
-      <div class="aviso-pendiente">
-        Todavía no hay un catálogo público conectado a los productos que registran los proveedores.
-        Esta sección mostrará los productos reales en cuanto exista esa funcionalidad.
-      </div>
+    <div class="products-grid" id="destacados">
+      <div class="aviso-pendiente">Cargando productos...</div>
     </div>
   </section>
 
@@ -234,6 +231,8 @@
       </div>
     </div>
   </footer>
-
+    <script src="js/sesion.js"></script>
+  <script src="js/productos-ui.js"></script>
+  <script src="js/destacados.js"></script>
 </body>
 </html>

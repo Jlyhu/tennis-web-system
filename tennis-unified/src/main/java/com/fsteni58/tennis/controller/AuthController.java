@@ -52,16 +52,20 @@ public class AuthController {
                 .body(new RegistroResponse(idGenerado, "Usuario registrado correctamente"));
     }
 
-    /**
+        /**
      * Autentica a un usuario existente (Comprador US2).
      * @param request credenciales (correo y contraseña)
-     * @return 200 OK con el id y nombre del usuario si las credenciales son correctas
+     * @return 200 OK con el id, nombre, rol y (si es proveedor) el id de proveedor
      */
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         Usuario usuario = authService.iniciarSesion(request);
-        return ResponseEntity.ok(
-                new LoginResponse(usuario.getId(), usuario.getNombre(), "Inicio de sesión exitoso")
-        );
+        return ResponseEntity.ok(new LoginResponse(
+                usuario.getId(),
+                usuario.getNombre(),
+                authService.obtenerNombreRol(usuario),
+                authService.obtenerProveedorId(usuario),
+                "Inicio de sesión exitoso"
+        ));
     }
 }
