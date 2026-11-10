@@ -30,7 +30,7 @@ import java.util.UUID;
 public class CarritoService {
 
     /** Métodos de pago aceptados en la simulación. */
-    private static final Set<String> METODOS_PAGO = Set.of("tarjeta", "pse", "contraentrega");
+    private static final Set<String> METODOS_PAGO = Set.of("nequi", "tarjeta", "paypal");
 
     private final CarritoRepository carritoRepository;
 
@@ -140,7 +140,7 @@ public class CarritoService {
      * Todo ocurre en una transacción: si algún producto ya no tiene stock
      * suficiente, no se descuenta nada y el carrito queda como estaba.
      * @param usuarioId id del comprador
-     * @param metodoPago "tarjeta", "pse" o "contraentrega"
+     * @param metodoPago "nequi", "tarjeta" o "paypal"
      * @return mensaje, referencia de la compra, método, total y cantidad de unidades
      * @throws IllegalArgumentException si el método no es válido, el carrito está
      *         vacío o falta stock de algún producto

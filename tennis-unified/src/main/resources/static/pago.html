@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+  <div class="announcement-bar"></div>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo-group">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="9" stroke="#FFF" stroke-width="1.6"/>
+            <path d="M4 8c3 1.6 11 1.6 14 0M4 14c3-1.6 11-1.6 14 0" stroke="#FFF" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Fsteni58</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="catalogo.html?categoria=raquetas" class="nav-link">Raquetas</a>
+        <a href="catalogo.html?categoria=calzado" class="nav-link">Calzado</a>
+        <a href="catalogo.html?categoria=accesorios" class="nav-link">Accesorios</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" id="btn-login" class="login-btn">Iniciar Sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="catalogo carrito">
+    <div class="section-header">
+      <span class="eyebrow">TU COMPRA</span>
+      <h2>Pago</h2>
+    </div>
+
+    <div id="pago-formulario" class="pago-caja">
+      <h3>Resumen de tu compra</h3>
+      <ul id="pago-resumen" class="pago-resumen"></ul>
+
+      <div class="carrito-total">
+        <span>Total a pagar</span>
+        <strong id="pago-total">$0 COP</strong>
+      </div>
+
+      <h3>Elige tu método de pago</h3>
+      <label class="metodo"><input type="radio" name="metodo" value="nequi"> Nequi</label>
+      <label class="metodo"><input type="radio" name="metodo" value="tarjeta"> Tarjeta crédito / débito</label>
+      <label class="metodo"><input type="radio" name="metodo" value="paypal"> PayPal</label>
+
+      <p class="pago-nota">El pago es una simulación: no se piden ni se guardan datos de pago.</p>
+      <p id="pago-error" class="error" role="alert"></p>
+
+      <div class="carrito-acciones">
+        <a href="carrito.html" class="btn-outline">Volver al carrito</a>
+        <button type="button" id="btn-pagar" class="btn-primary">Pagar</button>
+      </div>
+    </div>
+
+    <div id="pago-confirmacion" class="pago-caja" hidden>
+      <h3>¡Gracias por tu compra!</h3>
+      <ul class="pago-resumen">
+        <li><span>Referencia</span><strong id="conf-referencia"></strong></li>
+        <li><span>Método de pago</span><strong id="conf-metodo"></strong></li>
+        <li><span>Unidades</span><strong id="conf-unidades"></strong></li>
+        <li><span>Total pagado</span><strong id="conf-total"></strong></li>
+      </ul>
+      <div class="carrito-acciones">
+        <a href="catalogo.html" class="btn-primary">Seguir comprando</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-bottom">
+      <p>© 2026 Fsteni58. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/sesion.js"></script>
+  <script src="js/productos-ui.js"></script>
+  <script src="js/carrito.js"></script>
+  <script src="js/pago.js"></script>
+</body>
+</html>

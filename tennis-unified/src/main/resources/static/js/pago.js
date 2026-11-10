@@ -5,17 +5,17 @@
  * Equipo:       Fsteni58 — Aponte Romero, Lizarazo Rincón, Alejo León,
  *               Moreno Cortes, Orosco Quemba
  * Descripción:  Lógica de la vista pago.html. Muestra el resumen del
- *               carrito, deja elegir el método de pago (tarjeta, PSE o
- *               contraentrega) y llama a POST /carrito/pagar. El pago es
+ *               carrito, deja elegir el método de pago (Nequi, tarjeta
+ *               crédito/débito o PayPal) y llama a POST /carrito/pagar. El pago es
  *               una simulación: no se piden ni se guardan datos de pago.
  *               Al terminar muestra la confirmación con su referencia.
  *               Requiere js/sesion.js, js/productos-ui.js y js/carrito.js.
  */
 
 const NOMBRES_METODO = {
+  nequi: 'Nequi',
   tarjeta: 'Tarjeta crédito / débito',
-  pse: 'PSE',
-  contraentrega: 'Pago contraentrega'
+  paypal: 'PayPal'
 };
 
 const vistaPago = document.getElementById('pago-formulario');

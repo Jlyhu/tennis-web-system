@@ -95,7 +95,7 @@ public class CarritoController {
     /**
      * Simula el pago del carrito: descuenta el stock y cierra el carrito.
      * @param usuarioId id del comprador
-     * @param metodoPago "tarjeta", "pse" o "contraentrega"
+     * @param metodoPago "nequi", "tarjeta" o "paypal"
      * @return 200 OK con el mensaje, la referencia, el método, el total y las unidades
      */
     @PostMapping("/pagar")

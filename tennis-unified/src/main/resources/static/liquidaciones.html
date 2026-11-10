@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liquidaciones — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <div class="announcement-bar"></div>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo-group">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="9" stroke="#FFF" stroke-width="1.6"/>
+            <path d="M4 8c3 1.6 11 1.6 14 0M4 14c3-1.6 11-1.6 14 0" stroke="#FFF" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Fsteni58</span>
+      </a>
+      <nav class="nav-links"><span class="eyebrow">PANEL ADMIN</span></nav>
+      <div class="nav-actions"><a href="login.html" id="btn-login" class="login-btn">Iniciar sesión</a></div>
+    </div>
+  </header>
+
+  <div class="pagina">
+    <main class="ancho">
+      <div class="tarjeta">
+        <h2>Liquidación a proveedores</h2>
+        <p class="subtitulo" style="margin-bottom:20px;">Calcula lo que se le debe a cada proveedor por lo facturado en un periodo.</p>
+        <form id="formLiquidacion" style="display:grid;gap:10px;">
+          <select id="proveedor" required></select>
+          <label>Desde <input type="date" id="desde" required></label>
+          <label>Hasta <input type="date" id="hasta" required></label>
+          <select id="tipo">
+            <option value="periodica">Periódica</option>
+            <option value="final">Final (el proveedor sale de la plataforma)</option>
+          </select>
+          <select id="motivo" style="display:none;"></select>
+          <button type="submit">Generar liquidación</button>
+        </form>
+        <p id="mensaje" role="status"></p>
+      </div>
+      <div class="tarjeta" style="margin-top:16px;">
+        <h2>Historial</h2>
+        <div id="listaLiquidaciones"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/sesion.js"></script>
+  <script src="js/liquidaciones.js"></script>
+</body>
+</html>

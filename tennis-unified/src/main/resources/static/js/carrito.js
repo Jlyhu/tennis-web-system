@@ -77,7 +77,7 @@ function vaciarCarrito() { return pedirCarrito('', 'DELETE', {}); }
 
 /**
  * Paga el carrito (simulado).
- * @param {string} metodoPago "tarjeta", "pse" o "contraentrega"
+ * @param {string} metodoPago "nequi", "tarjeta" o "paypal"
  * @returns {Promise<Object>} mensaje, referencia, método, total y unidades
  */
 function pagarCarrito(metodoPago) {

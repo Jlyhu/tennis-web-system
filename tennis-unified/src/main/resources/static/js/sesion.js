@@ -25,7 +25,9 @@ const DESTINO_POR_ROL = {
 const ENLACES_POR_ROL = {
   administrador: [
     { texto: 'Clientes', href: 'clientes.html' },
-    { texto: 'Soporte', href: 'admin-tickets.html' }
+    { texto: 'Soporte', href: 'admin-tickets.html' },
+    { texto: 'Soporte', href: 'admin-tickets.html' },
+    { texto: 'Liquidaciones', href: 'liquidaciones.html' }
   ],
   proveedor: [
     { texto: 'Inventario', href: 'inventario.html' },
