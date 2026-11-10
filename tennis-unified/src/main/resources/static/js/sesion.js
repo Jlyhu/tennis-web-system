@@ -31,7 +31,8 @@ const ENLACES_POR_ROL = {
   ],
   proveedor: [
     { texto: 'Inventario', href: 'inventario.html' },
-    { texto: 'Stock', href: 'actualizar-stock.html' }
+    { texto: 'Stock', href: 'actualizar-stock.html' },
+    { texto: 'Movimientos', href: 'movimientos.html' },
   ],
   comprador: [
     { texto: 'Soporte', href: 'tickets.html' }

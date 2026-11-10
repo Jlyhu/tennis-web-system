@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movimientos de inventario — Fsteni58</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+</head>
+<body>
+
+  <div class="announcement-bar"></div>
+
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="logo-group">
+        <span class="logo-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="9" stroke="#FFF" stroke-width="1.6"/>
+            <path d="M4 8c3 1.6 11 1.6 14 0M4 14c3-1.6 11-1.6 14 0" stroke="#FFF" stroke-width="1.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Fsteni58</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link">Inicio</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="login.html" id="btn-login" class="login-btn">Iniciar Sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="pagina">
+    <main>
+      <div class="tarjeta">
+        <h2>Stock de mis productos <span class="rol">— Proveedor</span></h2>
+        <p class="subtitulo">Los productos con stock por debajo del mínimo aparecen marcados para reponer.</p>
+        <div id="alertaMinimos" class="mensaje"></div>
+        <table>
+          <thead>
+            <tr><th>Producto</th><th>Stock</th><th>Mínimo</th><th>Acciones</th></tr>
+          </thead>
+          <tbody id="tablaStock"></tbody>
+        </table>
+        <div id="mensajeStock" class="mensaje"></div>
+      </div>
+
+      <div class="tarjeta">
+        <h2>Registrar movimiento</h2>
+        <form id="formMovimiento">
+          <div class="campo">
+            <label for="producto">Producto</label>
+            <select id="producto" required></select>
+          </div>
+
+          <div class="campo">
+            <label for="tipo">Tipo</label>
+            <select id="tipo" required>
+              <option value="entrada">Entrada (llegó mercancía)</option>
+              <option value="salida">Salida (se retira stock)</option>
+              <option value="ajuste">Ajuste (corrección, puede ser negativo)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" step="1" required>
+          </div>
+
+          <div class="campo">
+            <label for="motivo">Motivo (opcional)</label>
+            <input type="text" id="motivo" maxlength="150" placeholder="Ej: reposición, producto dañado, conteo físico">
+          </div>
+
+          <button type="submit" class="boton-principal">Registrar movimiento</button>
+        </form>
+        <div id="mensaje" class="mensaje"></div>
+      </div>
+
+      <div class="tarjeta">
+        <h2>Historial <span id="tituloHistorial" class="rol"></span></h2>
+        <table id="tablaHistorial" hidden>
+          <thead>
+            <tr><th>Fecha</th><th>Tipo</th><th>Cantidad</th><th>Motivo</th></tr>
+          </thead>
+          <tbody id="cuerpoHistorial"></tbody>
+        </table>
+        <p id="vacioHistorial" class="subtitulo">Elige «Ver historial» en un producto de la tabla.</p>
+      </div>
+
+      <p class="pie"><a href="inventario.html">Registrar un producto nuevo</a></p>
+    </main>
+  </div>
+
+  <script src="js/sesion.js"></script>
+  <script src="js/movimientos.js"></script>
+</body>
+</html>
