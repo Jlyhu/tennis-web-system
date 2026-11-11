@@ -63,13 +63,16 @@ function tarjetaProducto(p) {
             onerror="this.parentElement.classList.add('sin-imagen')">`
     : '';
   const agotado = Number(p.stock) <= 0;
+  const enlace = 'producto.html?id=' + encodeURIComponent(p.id);
 
   return `
     <article class="producto">
-      <div class="producto-imagen ${p.imagenUrl ? '' : 'sin-imagen'}">${imagen}</div>
+      <a href="${enlace}" class="producto-enlace" aria-label="Ver ${escaparHtml(p.nombre)}">
+        <div class="producto-imagen ${p.imagenUrl ? '' : 'sin-imagen'}">${imagen}</div>
+      </a>
       <div class="producto-info">
         <span class="producto-categoria">${escaparHtml(categoria)}</span>
-        <h3 class="producto-nombre">${escaparHtml(p.nombre)}</h3>
+        <h3 class="producto-nombre"><a href="${enlace}" class="producto-enlace">${escaparHtml(p.nombre)}</a></h3>
         <p class="producto-descripcion">${escaparHtml(p.descripcion)}</p>
         <span class="producto-precio">${formatearPrecio(p.precio)}</span>
         <button type="button" class="btn-agregar" data-producto-id="${escaparHtml(p.id)}" ${agotado ? 'disabled' : ''}>

@@ -123,4 +123,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(new MensajeResponse(ex.getMessage()));
     }
+
+        /**
+     * Maneja la consulta de un producto que no existe o no está activo.
+     * @param ex excepción lanzada por el servicio
+     * @return 404 Not Found con el mensaje de la excepción
+     */
+    @ExceptionHandler(ProductoNoEncontradoException.class)
+    public ResponseEntity<MensajeResponse> manejarProductoNoEncontrado(ProductoNoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new MensajeResponse(ex.getMessage()));
+    }
 }

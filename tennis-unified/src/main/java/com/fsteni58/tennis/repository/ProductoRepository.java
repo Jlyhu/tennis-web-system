@@ -17,6 +17,7 @@ import com.fsteni58.tennis.dto.ProductoCatalogoResponse;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import com.fsteni58.tennis.dto.ProductoDetalleResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -136,4 +137,23 @@ public class ProductoRepository {
         }, usuarioId);
     }
 
+        /**
+     * Busca el detalle de un producto activo junto con el nombre de su proveedor.
+     * @param id id del producto
+     * @return el detalle, o vacío si no existe o no está activo
+     */
+    public Optional<ProductoDetalleResponse> buscarDetalle(UUID id) {
+        String sql = """
+            SELECT p.id, p.nombre, p.descripcion, p.categoria, p.precio, p.stock, p.imagen_url,
+                   p.proveedor_id, pr.nombre_empresa
+            FROM productos p
+            JOIN proveedores pr ON pr.id = p.proveedor_id
+            WHERE p.id = ? AND p.activo = true
+            """;
+        return jdbcTemplate.query(sql, (rs, n) -> new ProductoDetalleResponse(
+                (UUID) rs.getObject("id"), rs.getString("nombre"), rs.getString("descripcion"),
+                rs.getString("categoria"), rs.getBigDecimal("precio"), rs.getInt("stock"),
+                rs.getString("imagen_url"), (UUID) rs.getObject("proveedor_id"),
+                rs.getString("nombre_empresa")), id).stream().findFirst();
+    }
 }

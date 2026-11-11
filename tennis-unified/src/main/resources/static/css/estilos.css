@@ -401,3 +401,18 @@ th { color: var(--text-secondary); font-weight: 600; }
 .ticket-estado.cerrado { background: var(--border-warm); color: var(--text-secondary); }
 .ticket-asunto { font-weight: 700; margin-bottom: 4px; }
 .ticket-respuesta { margin-top: 10px; padding: 10px 12px; background: var(--bg-warm-lighter); border-radius: var(--radius-sm); font-size: 0.9rem; }
+
+/* Detalle de producto */
+.detalle { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.detalle-imagen { border-radius: var(--radius-md); overflow: hidden; }
+.detalle-imagen img { width: 100%; height: 100%; object-fit: cover; }
+.detalle-info { display: flex; flex-direction: column; gap: 12px; }
+.detalle-info h1 { font-size: 1.8rem; font-weight: 700; }
+.detalle-proveedor { color: var(--text-secondary); }
+.detalle-descripcion { line-height: 1.6; }
+.detalle-stock { font-size: 0.9rem; color: var(--text-secondary); }
+.detalle-stock.agotado { color: var(--error); font-weight: 600; }
+.detalle-info .btn-agregar { align-self: flex-start; width: auto; }
+.detalle-volver { margin-top: 24px; }
+.producto-enlace { color: inherit; text-decoration: none; display: block; }
+@media (max-width: 768px) { .detalle { grid-template-columns: 1fr; } }

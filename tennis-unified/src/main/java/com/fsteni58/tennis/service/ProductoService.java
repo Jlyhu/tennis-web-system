@@ -14,6 +14,7 @@ package com.fsteni58.tennis.service;
 import com.fsteni58.tennis.dto.ProductoRequest;
 import com.fsteni58.tennis.dto.ProductoResponse;
 import com.fsteni58.tennis.dto.ProductoCatalogoResponse;
+import com.fsteni58.tennis.dto.ProductoDetalleResponse;
 
 import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.ProductoRepository;
@@ -119,5 +120,16 @@ public class ProductoService {
     public ProductoResponse buscarPorId(UUID id) {
         return productoRepository.buscarPorId(id)
                 .orElseThrow(() -> new ProductoNoEncontradoException("No se encontró el producto con el ID especificado: " + id));
+    }
+
+        /**
+     * Retorna el detalle de un producto activo, con el proveedor que lo vende.
+     * @param id id del producto
+     * @return el detalle del producto
+     * @throws ProductoNoEncontradoException si no existe o no está activo
+     */
+    public ProductoDetalleResponse obtenerDetalle(UUID id) {
+        return productoRepository.buscarDetalle(id)
+                .orElseThrow(() -> new ProductoNoEncontradoException("No se encontró el producto con id " + id));
     }
 }

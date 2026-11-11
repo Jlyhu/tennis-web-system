@@ -16,6 +16,7 @@ import com.fsteni58.tennis.dto.ItemPedidoDTO;
 import com.fsteni58.tennis.dto.OrdenPedidoRequest;
 import com.fsteni58.tennis.dto.OrdenPedidoResponse;
 import com.fsteni58.tennis.exception.PedidoException;
+import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.model.EstadoOrden;
 import com.fsteni58.tennis.repository.PedidoRepository;
 import org.springframework.stereotype.Service;

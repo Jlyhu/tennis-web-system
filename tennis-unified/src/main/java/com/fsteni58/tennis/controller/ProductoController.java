@@ -22,6 +22,8 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.fsteni58.tennis.dto.ProductoDetalleResponse;
+
 
 import java.util.Map;
 import java.util.UUID;
@@ -70,5 +72,15 @@ public class ProductoController {
     @GetMapping
     public ResponseEntity<List<ProductoCatalogoResponse>> listar() {
         return ResponseEntity.ok(productoService.listarCatalogo());
+    }
+
+        /**
+     * Detalle público de un producto, con el proveedor que lo vende.
+     * @param id id del producto
+     * @return 200 OK con el detalle, o 404 si no existe
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductoDetalleResponse> detalle(@PathVariable UUID id) {
+        return ResponseEntity.ok(productoService.obtenerDetalle(id));
     }
 }
