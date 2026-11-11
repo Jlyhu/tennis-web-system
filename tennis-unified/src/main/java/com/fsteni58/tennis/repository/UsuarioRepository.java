@@ -87,4 +87,15 @@ public class UsuarioRepository {
             return Optional.empty();
         }, correo);
     }
+public String buscarNombreRol(UUID rolId) {
+    String sql = """
+        SELECT nombre_rol
+        FROM roles
+        WHERE id = ?
+        """;
+
+    return jdbcTemplate.queryForObject(sql, String.class, rolId);
+}
+
+
 }

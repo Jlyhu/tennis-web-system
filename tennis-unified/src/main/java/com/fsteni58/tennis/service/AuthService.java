@@ -23,7 +23,6 @@ import com.fsteni58.tennis.repository.ProveedorRepository;
 import com.fsteni58.tennis.repository.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.UUID;
 
 @Service
@@ -32,6 +31,7 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final ProveedorRepository proveedorRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    
 
     public AuthService(UsuarioRepository usuarioRepository, ProveedorRepository proveedorRepository) {
         this.usuarioRepository = usuarioRepository;
@@ -112,4 +112,8 @@ public class AuthService {
 
         return usuario;
     }
+public String buscarNombreRol(UUID rolId) {
+    return usuarioRepository.buscarNombreRol(rolId);
+}
+    
 }
