@@ -75,8 +75,9 @@ function guardarSesion(datos) {
   }));
 }
 
-/** Borra la sesión y vuelve al inicio. */
-function cerrarSesion() {
+/** Cierra la sesión en el servidor, borra la local y vuelve al inicio. */
+async function cerrarSesion() {
+  try { await fetch('/auth/logout', { method: 'POST' }); } catch (e) { /* se cierra igual en el navegador */ }
   localStorage.removeItem(CLAVE_SESION);
   window.location.href = 'index.html';
 }
@@ -124,5 +125,23 @@ function pintarSesionEnMenu() {
     });
   }
 }
+
+const PAGINAS_PUBLICAS = /^(index|catalogo|login|registro|registro-comprador|registro-proveedor)\.html$/;
+const fetchOriginal = window.fetch.bind(window);
+
+window.fetch = async (...args) => {
+  const respuesta = await fetchOriginal(...args);
+  const url = String(typeof args[0] === 'string' ? args[0] : args[0].url);
+  if (respuesta.status === 401 && !url.includes('/auth/')) {
+    localStorage.removeItem(CLAVE_SESION);
+    const pagina = window.location.pathname.split('/').pop() || 'index.html';
+    if (PAGINAS_PUBLICAS.test(pagina)) {
+      window.location.reload();
+    } else {
+      window.location.href = 'login.html?volver=' + encodeURIComponent(pagina + window.location.search);
+    }
+  }
+  return respuesta;
+};
 
 document.addEventListener('DOMContentLoaded', pintarSesionEnMenu);

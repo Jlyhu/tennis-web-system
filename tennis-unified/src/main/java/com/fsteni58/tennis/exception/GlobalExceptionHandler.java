@@ -22,6 +22,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -110,5 +111,16 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TicketNoEncontradoException.class)
         public ResponseEntity<?> manejarTicketNoEncontrado(TicketNoEncontradoException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", ex.getMessage()));
+    }
+
+        /**
+     * Maneja un intento de usar un id que no pertenece al usuario con sesión.
+     * @param ex excepción lanzada por el control de identidad
+     * @return 403 Forbidden con el mensaje de la excepción
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<MensajeResponse> manejarAccesoDenegado(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new MensajeResponse(ex.getMessage()));
     }
 }

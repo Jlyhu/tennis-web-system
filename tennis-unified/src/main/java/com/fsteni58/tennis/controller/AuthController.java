@@ -16,7 +16,11 @@ import com.fsteni58.tennis.dto.LoginResponse;
 import com.fsteni58.tennis.dto.RegistroRequest;
 import com.fsteni58.tennis.dto.RegistroResponse;
 import com.fsteni58.tennis.model.Usuario;
+import com.fsteni58.tennis.security.SesionSegura;
 import com.fsteni58.tennis.service.AuthService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +32,12 @@ import java.util.UUID;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthService authService;
+        private final AuthService authService;
+    private final SesionSegura sesionSegura;
 
-    public AuthController(AuthService authService) {
+    public AuthController(AuthService authService, SesionSegura sesionSegura) {
         this.authService = authService;
+        this.sesionSegura = sesionSegura;
     }
 
     /**
@@ -57,14 +63,19 @@ public class AuthController {
      * @param request credenciales (correo y contraseña)
      * @return 200 OK con el id, nombre, rol y (si es proveedor) el id de proveedor
      */
-    @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+        @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request,
+                                               HttpServletRequest httpRequest,
+                                               HttpServletResponse httpResponse) {
         Usuario usuario = authService.iniciarSesion(request);
+        String rol = authService.obtenerNombreRol(usuario);
+        UUID proveedorId = authService.obtenerProveedorId(usuario);
+        sesionSegura.iniciar(usuario.getId(), usuario.getNombre(), rol, proveedorId, httpRequest, httpResponse);
         return ResponseEntity.ok(new LoginResponse(
                 usuario.getId(),
                 usuario.getNombre(),
-                authService.obtenerNombreRol(usuario),
-                authService.obtenerProveedorId(usuario),
+                rol,
+                proveedorId,
                 "Inicio de sesión exitoso"
         ));
     }
