@@ -35,6 +35,7 @@ const ENLACES_POR_ROL = {
     { texto: 'Movimientos', href: 'movimientos.html' },
   ],
   comprador: [
+    { texto: 'Mis compras', href: 'historial.html' },
     { texto: 'Soporte', href: 'tickets.html' }
   ]
 };
