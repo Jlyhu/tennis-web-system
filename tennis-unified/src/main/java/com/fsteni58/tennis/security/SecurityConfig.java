@@ -52,6 +52,8 @@ public class SecurityConfig {
                 .requestMatchers("/tickets/**").hasRole("COMPRADOR")
                 .requestMatchers(HttpMethod.PATCH, "/api/pedidos/*/estado").hasAnyRole("ADMINISTRADOR", "PROVEEDOR")
                 .requestMatchers("/api/pedidos/**").authenticated()
+                .requestMatchers("/api/compras/**").hasRole("COMPRADOR")
+.requestMatchers("/api/promociones/**").hasRole("COMPRADOR")
                 .anyRequest().authenticated())
             .exceptionHandling(e -> e
                 .authenticationEntryPoint((req, res, ex) -> responder(res, 401, "Inicia sesión para continuar."))

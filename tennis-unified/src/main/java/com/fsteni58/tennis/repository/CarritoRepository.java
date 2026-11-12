@@ -15,6 +15,7 @@ import com.fsteni58.tennis.dto.CarritoItemResponse;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -176,17 +177,66 @@ public class CarritoRepository {
      * @param cantidad unidades a descontar
      * @return filas afectadas (0 si el producto no está activo o no hay stock suficiente)
      */
-    public int descontarStock(UUID productoId, int cantidad) {
-        String sql = "UPDATE productos SET stock = stock - ? WHERE id = ? AND activo = true AND stock >= ?";
-        return jdbcTemplate.update(sql, cantidad, productoId, cantidad);
-    }
+    
 
     /**
      * Marca un carrito como comprado, para que el usuario pueda abrir uno nuevo.
      * @param carritoId id del carrito
      * @return filas afectadas
      */
-    public int marcarComprado(UUID carritoId) {
-        return jdbcTemplate.update("UPDATE carritos SET estado = 'comprado' WHERE id = ?", carritoId);
+        public int marcarComprado(UUID carritoId) {
+        return jdbcTemplate.update("UPDATE carritos SET estado = 'comprado' WHERE id = ? AND estado = 'activo'", carritoId);
+    }
+
+    /** Factura emitida: número consecutivo y valores. */
+    public record FacturaEmitida(long numero, BigDecimal subtotal, BigDecimal iva, BigDecimal total) { }
+
+    /** Busca el id de un método de pago activo por su código (nequi, tarjeta, paypal). */
+    public Optional<UUID> buscarMetodoPago(String codigo) {
+        return jdbcTemplate.query("SELECT id FROM metodos_pago WHERE codigo = ? AND activo = true", rs -> {
+            if (rs.next()) return Optional.of((UUID) rs.getObject("id"));
+            return Optional.empty();
+        }, codigo);
+    }
+
+    /** Crea el pedido ya pagado (estado EN_PROCESO) y devuelve su id. */
+    public UUID crearPedido(UUID compradorId, UUID metodoPagoId, String referencia) {
+        return jdbcTemplate.queryForObject("""
+            INSERT INTO pedidos (comprador_id, metodo_pago_id, referencia, estado, fecha_pago)
+            VALUES (?, ?, ?, 'EN_PROCESO', now())
+            RETURNING id
+            """, UUID.class, compradorId, metodoPagoId, referencia);
+    }
+
+    /** Agrega una línea al pedido. El trigger de la base completa proveedor, nombre y subtotal. */
+    public void agregarLinea(UUID pedidoId, UUID productoId, int cantidad, BigDecimal precioUnitario) {
+        jdbcTemplate.update("""
+            INSERT INTO detalle_pedido (pedido_id, producto_id, cantidad, precio_unitario)
+            VALUES (?, ?, ?, ?)
+            """, pedidoId, productoId, cantidad, precioUnitario);
+    }
+
+    /** Registra las salidas de inventario del pedido; el stock se actualiza solo. */
+    public void registrarSalidas(UUID pedidoId) {
+        jdbcTemplate.query("SELECT fn_registrar_salidas_pedido(?::uuid)", rs -> { }, pedidoId);
+    }
+
+    /** Emite la factura del pedido con el IVA y la comisión indicados. */
+    public UUID crearFactura(UUID pedidoId, BigDecimal iva, BigDecimal comision) {
+        return jdbcTemplate.queryForObject(
+                "SELECT fn_crear_factura(?::uuid, ?::numeric, ?::numeric)", UUID.class, pedidoId, iva, comision);
+    }
+
+    public FacturaEmitida leerFactura(UUID facturaId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT numero, subtotal, iva, total FROM facturas WHERE id = ?",
+                (rs, n) -> new FacturaEmitida(rs.getLong("numero"), rs.getBigDecimal("subtotal"),
+                        rs.getBigDecimal("iva"), rs.getBigDecimal("total")),
+                facturaId);
+    }
+
+    /** El total del pedido es el de la factura (con IVA). */
+    public void fijarTotalPedido(UUID pedidoId, BigDecimal total) {
+        jdbcTemplate.update("UPDATE pedidos SET total = ? WHERE id = ?", total, pedidoId);
     }
 }

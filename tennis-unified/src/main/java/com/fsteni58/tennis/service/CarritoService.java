@@ -20,6 +20,9 @@ import com.fsteni58.tennis.exception.ProductoNoEncontradoException;
 import com.fsteni58.tennis.repository.CarritoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.fsteni58.tennis.repository.CarritoRepository.FacturaEmitida;
+import com.fsteni58.tennis.util.Tarifas;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.Map;
@@ -145,32 +148,53 @@ public class CarritoService {
      * @throws IllegalArgumentException si el método no es válido, el carrito está
      *         vacío o falta stock de algún producto
      */
-    @Transactional
+     @Transactional
     public Map<String, Object> pagar(UUID usuarioId, String metodoPago) {
         validarComprador(usuarioId);
         if (metodoPago == null || !METODOS_PAGO.contains(metodoPago)) {
             throw new IllegalArgumentException("Elige un método de pago válido");
         }
+        UUID metodoId = carritoRepository.buscarMetodoPago(metodoPago)
+                .orElseThrow(() -> new IllegalArgumentException("Elige un método de pago válido"));
         UUID carritoId = carritoActivoOError(usuarioId);
         List<CarritoItemResponse> items = carritoRepository.listarItems(carritoId);
         if (items.isEmpty()) {
             throw new IllegalArgumentException("Tu carrito está vacío");
         }
         for (CarritoItemResponse item : items) {
-            if (carritoRepository.descontarStock(item.getProductoId(), item.getCantidad()) == 0) {
+            int stock = carritoRepository.stockDeProductoActivo(item.getProductoId()).orElse(0);
+            if (stock < item.getCantidad()) {
                 throw new IllegalArgumentException("No hay stock suficiente de " + item.getNombre());
             }
         }
-        carritoRepository.marcarComprado(carritoId);
 
-        CarritoResponse resumen = new CarritoResponse(items);
         String referencia = "FST-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        UUID pedidoId = carritoRepository.crearPedido(usuarioId, metodoId, referencia);
+        for (CarritoItemResponse item : items) {
+            carritoRepository.agregarLinea(pedidoId, item.getProductoId(), item.getCantidad(), item.getPrecioUnitario());
+        }
+        try {
+            carritoRepository.registrarSalidas(pedidoId);
+        } catch (DataIntegrityViolationException e) {
+            throw new IllegalArgumentException("No hay stock suficiente para completar tu compra. Revisa las cantidades de tu carrito");
+        }
+        UUID facturaId = carritoRepository.crearFactura(pedidoId, Tarifas.IVA_PORCENTAJE, Tarifas.COMISION_PORCENTAJE);
+        FacturaEmitida factura = carritoRepository.leerFactura(facturaId);
+        carritoRepository.fijarTotalPedido(pedidoId, factura.total());
+        if (carritoRepository.marcarComprado(carritoId) == 0) {
+            throw new IllegalArgumentException("Esta compra ya fue procesada");
+        }
+
         return Map.of(
                 "mensaje", "Pago aprobado (simulación)",
                 "referencia", referencia,
+                "pedidoId", pedidoId,
+                "facturaNumero", factura.numero(),
                 "metodoPago", metodoPago,
-                "total", resumen.getTotal(),
-                "cantidadProductos", resumen.getCantidadTotal()
+                "subtotal", factura.subtotal(),
+                "iva", factura.iva(),
+                "total", factura.total(),
+                "cantidadProductos", new CarritoResponse(items).getCantidadTotal()
         );
     }
 

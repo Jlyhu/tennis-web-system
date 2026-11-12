@@ -33,7 +33,9 @@ function pintarResumen(carrito) {
   resumenPago.innerHTML = carrito.items.map(i => `
     <li><span>${escaparHtml(i.nombre)} × ${i.cantidad}</span><strong>${formatearPrecio(i.subtotal)}</strong></li>
   `).join('');
-  totalPago.textContent = formatearPrecio(carrito.total);
+    document.getElementById('pago-subtotal').textContent = formatearPrecio(carrito.total);
+  document.getElementById('pago-iva').textContent = formatearPrecio(carrito.iva);
+  totalPago.textContent = formatearPrecio(carrito.totalConIva);
 }
 
 /**
@@ -45,6 +47,8 @@ function pintarConfirmacion(recibo) {
   document.getElementById('conf-metodo').textContent = NOMBRES_METODO[recibo.metodoPago] || recibo.metodoPago;
   document.getElementById('conf-unidades').textContent = recibo.cantidadProductos;
   document.getElementById('conf-total').textContent = formatearPrecio(recibo.total);
+  document.getElementById('conf-factura').textContent = recibo.facturaNumero;
+  document.getElementById('conf-iva').textContent = formatearPrecio(recibo.iva);
   vistaPago.hidden = true;
   vistaConfirmacion.hidden = false;
   actualizarContador(0);

@@ -8,14 +8,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class IdentidadConfig implements WebMvcConfigurer {
 
     private final ControlDeIdentidad controlDeIdentidad;
+private final UsuarioIdDesdeSesion usuarioIdDesdeSesion;
 
-    public IdentidadConfig(ControlDeIdentidad controlDeIdentidad) {
-        this.controlDeIdentidad = controlDeIdentidad;
-    }
+public IdentidadConfig(ControlDeIdentidad controlDeIdentidad, UsuarioIdDesdeSesion usuarioIdDesdeSesion) {
+    this.controlDeIdentidad = controlDeIdentidad;
+    this.usuarioIdDesdeSesion = usuarioIdDesdeSesion;
+}
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(controlDeIdentidad)
-                .addPathPatterns("/carrito/**", "/tickets/**", "/inventario/**", "/productos/**");
-    }
+@Override
+public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(controlDeIdentidad)
+            .addPathPatterns("/carrito/**", "/tickets/**", "/inventario/**", "/productos/**");
+    registry.addInterceptor(usuarioIdDesdeSesion)
+            .addPathPatterns("/api/compras/**", "/api/promociones/**");
+}
 }

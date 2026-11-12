@@ -10,49 +10,33 @@
  */
 package com.fsteni58.tennis.dto;
 
+import com.fsteni58.tennis.util.Tarifas;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class CarritoResponse {
 
-    /** Productos que hay en el carrito (vacía si no hay ninguno). */
     private List<CarritoItemResponse> items;
-
-    /** Suma de los subtotales, en COP. */
-    private BigDecimal total;
-
-    /** Suma de las cantidades de todos los ítems. */
+    private BigDecimal total;          // subtotal, sin IVA
+    private BigDecimal iva;
+    private BigDecimal totalConIva;
     private int cantidadTotal;
 
-    /**
-     * Crea la respuesta del carrito y calcula el total y la cantidad total.
-     * @param items ítems del carrito
-     */
     public CarritoResponse(List<CarritoItemResponse> items) {
         this.items = items;
         this.total = items.stream()
                 .map(CarritoItemResponse::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+        this.iva = Tarifas.ivaDe(this.total);
+        this.totalConIva = this.total.add(this.iva);
         this.cantidadTotal = items.stream()
                 .mapToInt(CarritoItemResponse::getCantidad)
                 .sum();
     }
 
-    /**
-     * Obtiene los ítems del carrito.
-     * @return lista de ítems
-     */
     public List<CarritoItemResponse> getItems() { return items; }
-
-    /**
-     * Obtiene el total a pagar.
-     * @return total en COP
-     */
     public BigDecimal getTotal() { return total; }
-
-    /**
-     * Obtiene el número total de unidades.
-     * @return suma de las cantidades
-     */
+    public BigDecimal getIva() { return iva; }
+    public BigDecimal getTotalConIva() { return totalConIva; }
     public int getCantidadTotal() { return cantidadTotal; }
 }
