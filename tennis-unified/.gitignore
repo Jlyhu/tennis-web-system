@@ -5,11 +5,7 @@ target/
 .vscode/
 .DS_Store
 .metadata/
-<<<<<<< HEAD
 .project.classpath
 .settings/
 .classpath
 .project
-=======
-*.txt
->>>>>>> origin/Visualizar-productos-en-el-carrito-de-compras
