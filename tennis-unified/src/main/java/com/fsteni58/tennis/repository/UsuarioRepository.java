@@ -87,7 +87,6 @@ public class UsuarioRepository {
             return Optional.empty();
         }, correo);
     }
-<<<<<<< HEAD
 
         /**
      * Busca el nombre de un rol a partir de su id.
@@ -101,17 +100,4 @@ public class UsuarioRepository {
             return Optional.empty();
         }, rolId);
     }
-=======
-public String buscarNombreRol(UUID rolId) {
-    String sql = """
-        SELECT nombre_rol
-        FROM roles
-        WHERE id = ?
-        """;
-
-    return jdbcTemplate.queryForObject(sql, String.class, rolId);
-}
-
-
->>>>>>> origin/Visualizar-productos-en-el-carrito-de-compras
 }

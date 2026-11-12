@@ -121,7 +121,6 @@ public class AuthService {
 
         return usuario;
     }
-<<<<<<< HEAD
 
         /**
      * Obtiene el nombre del rol de un usuario (por ejemplo "comprador" o "proveedor").
@@ -142,10 +141,4 @@ public class AuthService {
     public UUID obtenerProveedorId(Usuario usuario) {
         return proveedorRepository.buscarIdPorUsuario(usuario.getId()).orElse(null);
     }
-=======
-public String buscarNombreRol(UUID rolId) {
-    return usuarioRepository.buscarNombreRol(rolId);
-}
-    
->>>>>>> origin/Visualizar-productos-en-el-carrito-de-compras
 }
